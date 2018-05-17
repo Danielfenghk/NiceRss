@@ -1,10 +1,9 @@
-package com.appsbrook.nicerss.ui.activity;
+package com.appsbrook.nicerss.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
@@ -13,6 +12,7 @@ import android.widget.ImageButton;
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.data.SettingsManager;
 import com.appsbrook.nicerss.ui.adapters.IntroductionPagerAdapter;
+import com.appsbrook.nicerss.utils.FadePageTransformerUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +49,8 @@ public class IntroductionActivity extends AppCompatActivity
 
         adapter = new IntroductionPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setPageTransformer(false, new FadePageTransformerUtil());
         viewPager.addOnPageChangeListener(this);
     }
 

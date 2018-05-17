@@ -1,10 +1,8 @@
-package com.appsbrook.nicerss.ui.activity;
+package com.appsbrook.nicerss.ui.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.appsbrook.nicerss.ui.activity.MainActivity;
 
 import hugo.weaving.DebugLog;
 

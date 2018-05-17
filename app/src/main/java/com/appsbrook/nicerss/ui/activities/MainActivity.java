@@ -1,4 +1,4 @@
-package com.appsbrook.nicerss.ui.activity;
+package com.appsbrook.nicerss.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appsbrook.nicerss.R;
-import com.appsbrook.nicerss.presentation.presenter.MainMvpPresenter;
-import com.appsbrook.nicerss.presentation.view.MainMvpView;
+import com.appsbrook.nicerss.mvp.presenters.MainMvpPresenter;
+import com.appsbrook.nicerss.mvp.views.MainMvpView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 

@@ -1,4 +1,4 @@
-package com.appsbrook.nicerss.presentation.view;
+package com.appsbrook.nicerss.mvp.views;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy;

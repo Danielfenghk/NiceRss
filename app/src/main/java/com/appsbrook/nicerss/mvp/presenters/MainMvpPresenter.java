@@ -1,6 +1,6 @@
-package com.appsbrook.nicerss.presentation.presenter;
+package com.appsbrook.nicerss.mvp.presenters;
 
-import com.appsbrook.nicerss.presentation.view.MainMvpView;
+import com.appsbrook.nicerss.mvp.views.MainMvpView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
