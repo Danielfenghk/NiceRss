@@ -109,5 +109,6 @@ public class NewsItemsFragment extends MvpAppCompatFragment
     public void hideNoItemsDisplay() {
 
         noItemsLinearLayout.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }
