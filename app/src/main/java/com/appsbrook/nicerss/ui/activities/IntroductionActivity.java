@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
+import android.view.Window;
 import android.widget.ImageButton;
 
 import com.appsbrook.nicerss.R;
@@ -47,6 +47,9 @@ public class IntroductionActivity extends AppCompatActivity
 
         TheApp.getAppComponent().inject(this);
         super.onCreate(savedInstanceState);
+
+        // TODO hide device title bar
+
 
         setContentView(R.layout.activity_introduction);
         ButterKnife.bind(this);
