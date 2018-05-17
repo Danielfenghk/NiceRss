@@ -31,17 +31,19 @@ public class IntroductionActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_introduction);
         ButterKnife.bind(this);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+
         //run once
 
-        new IntroductionPagerAdapter(getSupportFragmentManager());
-
-
+        IntroductionPagerAdapter adapter = new IntroductionPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
     }
 
     @OnClick(R.id.next_image_button)
@@ -55,7 +57,17 @@ public class IntroductionActivity extends AppCompatActivity
 
     @Override
     public void onPageSelected(int position) {
-        // TODO
+        switch (position) {
+            case 0:
+                nextImageButton.setImageResource(R.drawable.ic_arrow_forward);
+                break;
+            case 1:
+                nextImageButton.setImageResource(R.drawable.ic_arrow_forward);
+                break;
+            case 2:
+                nextImageButton.setImageResource(R.drawable.ic_done);
+                break;
+        }
     }
 
     @Override

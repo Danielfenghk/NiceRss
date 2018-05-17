@@ -14,7 +14,7 @@ public class IntroductionPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return IntroductionFragment.newInstance(position);
+        return IntroductionFragment.newInstance(position + 1);
     }
 
     @Override
