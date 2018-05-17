@@ -49,9 +49,6 @@ public class IntroductionActivity extends AppCompatActivity
         setContentView(R.layout.activity_introduction);
         ButterKnife.bind(this);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         runOnce();
 
         adapter = new IntroductionPagerAdapter(getSupportFragmentManager());
