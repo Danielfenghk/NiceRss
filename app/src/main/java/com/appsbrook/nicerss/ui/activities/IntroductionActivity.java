@@ -20,9 +20,16 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hugo.weaving.DebugLog;
 
+@DebugLog
 public class IntroductionActivity extends AppCompatActivity
         implements ViewPager.OnPageChangeListener {
+
+    @Inject
+    SettingsManager settingsManager;
+
+    private IntroductionPagerAdapter adapter;
 
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
@@ -30,11 +37,6 @@ public class IntroductionActivity extends AppCompatActivity
     ViewPager viewPager;
     @BindView(R.id.next_image_button)
     ImageButton nextImageButton;
-
-    @Inject
-    SettingsManager settingsManager;
-
-    private IntroductionPagerAdapter adapter;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, IntroductionActivity.class);
@@ -51,24 +53,23 @@ public class IntroductionActivity extends AppCompatActivity
 
         runOnce();
 
+        setupViewPager();
+    }
+
+    private void runOnce() {
+
+        if (!settingsManager.isFirstLaunch()) {
+            openMainActivity();
+        }
+    }
+
+    private void setupViewPager() {
+
         adapter = new IntroductionPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setPageTransformer(false, new FadePageTransformerUtil());
         viewPager.addOnPageChangeListener(this);
-    }
-
-    private void runOnce() {
-
-        boolean firstLaunch = settingsManager.isFirstLaunch();
-        if (!firstLaunch) {
-            openMainActivity();
-        }
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
@@ -84,6 +85,11 @@ public class IntroductionActivity extends AppCompatActivity
                 nextImageButton.setImageResource(R.drawable.ic_done);
                 break;
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
     @Override
@@ -104,6 +110,7 @@ public class IntroductionActivity extends AppCompatActivity
     }
 
     private void openMainActivity() {
+
         Intent intent = MainActivity.newIntent(this);
         startActivity(intent);
         finish();

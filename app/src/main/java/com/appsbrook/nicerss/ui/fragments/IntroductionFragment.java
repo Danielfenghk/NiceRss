@@ -17,11 +17,16 @@ import com.appsbrook.nicerss.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
+@DebugLog
 public class IntroductionFragment extends Fragment {
 
     private static final String ARG_PAGE_NUMBER = "ARG_PAGE_NUMBER";
+
+    @BindView(R.id.relative_layout_fragment_splash)
+    RelativeLayout relativeLayoutFragmentSplash;
     @BindView(R.id.text_view_splash_title)
     TextView textViewSplashTitle;
     @BindView(R.id.image_view_splash)
@@ -40,10 +45,8 @@ public class IntroductionFragment extends Fragment {
     ImageView imageViewSelectedDot2;
     @BindView(R.id.image_view_selected_dot_3)
     ImageView imageViewSelectedDot3;
-    @BindView(R.id.relative_layout_fragment_splash)
-    RelativeLayout relativeLayoutFragmentSplash;
-    Unbinder unbinder;
 
+    Unbinder unbinder;
 
     public static Fragment newInstance(int position) {
 
@@ -59,9 +62,7 @@ public class IntroductionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(R.layout.fragment_introduction, container, false);
-
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -76,40 +77,40 @@ public class IntroductionFragment extends Fragment {
         switch (pageNumber) {
 
             case 1:
-                textViewSplashTitle.setText("Page 1");
-                textViewSplashDesc.setText("Page 1 description");
-                imageViewSplash.setImageResource(R.drawable.ic_intro_one);
-                relativeLayoutFragmentSplash.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.md_blue_grey_500));
-                imageViewSelectedDot1.setVisibility(View.VISIBLE);
-                imageViewSelectedDot2.setVisibility(View.INVISIBLE);
-                imageViewSelectedDot3.setVisibility(View.INVISIBLE);
+                processPage("Page 1", "Page 1 description", R.drawable.ic_intro_one,
+                        R.color.md_blue_grey_500, View.VISIBLE, View.INVISIBLE, View.INVISIBLE);
                 break;
             case 2:
-                textViewSplashTitle.setText("Page 2");
-                textViewSplashDesc.setText("Page 2 description");
-                imageViewSplash.setImageResource(R.drawable.ic_intro_two);
-                relativeLayoutFragmentSplash.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-                imageViewSelectedDot1.setVisibility(View.INVISIBLE);
-                imageViewSelectedDot2.setVisibility(View.VISIBLE);
-                imageViewSelectedDot3.setVisibility(View.INVISIBLE);
+                processPage("Page 2", "Page 2 description", R.drawable.ic_intro_two,
+                        R.color.colorAccent, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
                 break;
             case 3:
-                textViewSplashTitle.setText("Page 3");
-                textViewSplashDesc.setText("Page 3 description");
-                imageViewSplash.setImageResource(R.drawable.ic_intro_three);
-                relativeLayoutFragmentSplash.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-                imageViewSelectedDot1.setVisibility(View.INVISIBLE);
-                imageViewSelectedDot2.setVisibility(View.INVISIBLE);
-                imageViewSelectedDot3.setVisibility(View.VISIBLE);
+                processPage("Page 3", "Page 3 description", R.drawable.ic_intro_three,
+                        R.color.colorPrimary, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
                 break;
             default:
                 throw new RuntimeException("Wrong page number");
         }
     }
 
+    private void processPage(String title, String description, int imageResource,
+                             int backgroundColor, int dotOneVisibitity, int dotTwoVisibility,
+                             int dotThreeVisibility) {
+
+        textViewSplashTitle.setText(title);
+        textViewSplashDesc.setText(description);
+        imageViewSplash.setImageResource(imageResource);
+        relativeLayoutFragmentSplash.setBackgroundColor(ContextCompat.getColor(getActivity(),
+                backgroundColor));
+        imageViewSelectedDot1.setVisibility(dotOneVisibitity);
+        imageViewSelectedDot2.setVisibility(dotTwoVisibility);
+        imageViewSelectedDot3.setVisibility(dotThreeVisibility);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         unbinder.unbind();
     }
 }

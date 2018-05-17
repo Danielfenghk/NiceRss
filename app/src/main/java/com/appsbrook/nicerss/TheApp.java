@@ -9,8 +9,10 @@ import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
+import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
+@DebugLog
 public class TheApp extends Application {
 
     private static AppComponent appComponent;

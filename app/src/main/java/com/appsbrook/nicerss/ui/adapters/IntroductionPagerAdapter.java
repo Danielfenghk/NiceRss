@@ -6,10 +6,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.appsbrook.nicerss.ui.fragments.IntroductionFragment;
 
+import hugo.weaving.DebugLog;
+
+@DebugLog
 public class IntroductionPagerAdapter extends FragmentPagerAdapter {
 
-    public IntroductionPagerAdapter(FragmentManager fm) {
-        super(fm);
+    public IntroductionPagerAdapter(FragmentManager fragmentManager) {
+        super(fragmentManager);
     }
 
     @Override
