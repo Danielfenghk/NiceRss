@@ -1,19 +1,17 @@
-package com.appsbrook.nicerss.ui.activities;
+package com.appsbrook.nicerss.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appsbrook.nicerss.R;
-import com.appsbrook.nicerss.mvp.presenters.MainMvpPresenter;
-import com.appsbrook.nicerss.mvp.views.MainMvpView;
-import com.appsbrook.nicerss.ui.fragments.NewsItemsFragment;
+import com.appsbrook.nicerss.presentation.presenter.MainMvpPresenter;
+import com.appsbrook.nicerss.presentation.view.MainMvpView;
+import com.appsbrook.nicerss.ui.fragment.NewsItemsFragment;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 

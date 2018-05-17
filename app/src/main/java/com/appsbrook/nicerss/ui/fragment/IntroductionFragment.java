@@ -1,4 +1,4 @@
-package com.appsbrook.nicerss.ui.fragments;
+package com.appsbrook.nicerss.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

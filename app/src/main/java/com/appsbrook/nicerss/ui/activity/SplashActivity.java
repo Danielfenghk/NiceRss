@@ -1,4 +1,4 @@
-package com.appsbrook.nicerss.ui.activities;
+package com.appsbrook.nicerss.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

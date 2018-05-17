@@ -1,11 +1,10 @@
-package com.appsbrook.nicerss.mvp.presenters;
+package com.appsbrook.nicerss.presentation.presenter;
 
-import com.appsbrook.nicerss.mvp.views.MainMvpView;
+import com.appsbrook.nicerss.presentation.view.MainMvpView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import hugo.weaving.DebugLog;
-import timber.log.Timber;
 
 @DebugLog
 @InjectViewState

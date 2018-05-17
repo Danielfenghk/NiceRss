@@ -1,7 +1,7 @@
 package com.appsbrook.nicerss.di.components;
 
 import com.appsbrook.nicerss.di.modules.AppModule;
-import com.appsbrook.nicerss.ui.activities.IntroductionActivity;
+import com.appsbrook.nicerss.ui.activity.IntroductionActivity;
 
 import javax.inject.Singleton;
 
