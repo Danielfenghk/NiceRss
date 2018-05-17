@@ -62,7 +62,6 @@
     </string-array>
 
 
-
     <string-array name="sources_test">
         <item>All Sources</item>
         <item>Reuters</item>
@@ -195,13 +194,13 @@
     <string name="perf_curated_feeds_import_desc">Import some of the best Rss feed sources available over the internet</string>
     <string name="perf_curated_feeds_import_key">perf_curated_feeds_import_key</string>
 
-    <string-array name="perf_curated_feeds_import_empty" />
+    <string-array name="perf_curated_feeds_import_empty"/>
 
     <string name="perf_curated_feeds_submit">Submit Curated feeds</string>
     <string name="perf_curated_feeds_submit_desc">Submit your own Rss feed sources and help in improving the current curated list</string>
     <string name="perf_curated_feeds_submit_key">perf_curated_feeds_submit_key</string>
 
-    <string-array name="perf_curated_feeds_submit_empty" />
+    <string-array name="perf_curated_feeds_submit_empty"/>
 
     <string name="perf_theme">Manage themes</string>
     <string name="perf_theme_desc">Change the system theme</string>
@@ -274,5 +273,8 @@
     <string name="splash_desc_1">A Minimalistic Rss Reader</string>
     <string name="splash_desc_2">Scroll swiftly through the available feeds</string>
     <string name="splash_desc_3">Add your own Rss feed sources, manage them and read the articles associated with the feeds</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

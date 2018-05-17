@@ -15,16 +15,8 @@ public class MainMvpPresenter extends MvpPresenter<MainMvpView> {
 
     public MainMvpPresenter() {
 
-        getViewState().showCount(count);
     }
 
-    public void incrementCount() {
-
-        count++;
-        Timber.d("Count: " + count);
-
-        getViewState().showCount(count);
-    }
 
     public void onSettingsClick() {
 

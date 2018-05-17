@@ -48,9 +48,6 @@ public class IntroductionActivity extends AppCompatActivity
         TheApp.getAppComponent().inject(this);
         super.onCreate(savedInstanceState);
 
-        // TODO hide device title bar
-
-
         setContentView(R.layout.activity_introduction);
         ButterKnife.bind(this);
 

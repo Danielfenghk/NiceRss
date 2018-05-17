@@ -3,6 +3,7 @@ package com.appsbrook.nicerss.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.mvp.presenters.MainMvpPresenter;
 import com.appsbrook.nicerss.mvp.views.MainMvpView;
+import com.appsbrook.nicerss.ui.fragments.NewsItemsFragment;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -30,13 +32,9 @@ public class MainActivity extends MvpAppCompatActivity
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.count_text_view)
-    TextView countTextView;
-
     @OnClick(R.id.fab)
     void onFabClicked() {
 
-        presenter.incrementCount();
     }
 
     public static Intent newIntent(Context context) {
@@ -53,17 +51,24 @@ public class MainActivity extends MvpAppCompatActivity
         ButterKnife.bind(this);
 
         setupToolbar();
+
+        setupFragment();
     }
+
 
     private void setupToolbar() {
 
         setSupportActionBar(toolbar);
     }
 
-    @Override
-    public void showCount(int count) {
+    private void setupFragment() {
 
-        countTextView.setText(String.valueOf(count));
+        if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, NewsItemsFragment.newInstance())
+                    .commit();
+        }
     }
 
     @Override
