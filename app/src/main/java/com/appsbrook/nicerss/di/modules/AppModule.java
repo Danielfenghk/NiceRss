@@ -2,8 +2,6 @@ package com.appsbrook.nicerss.di.modules;
 
 import android.content.Context;
 
-import com.appsbrook.nicerss.data.SettingsManager;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -24,10 +22,4 @@ public class AppModule {
         return context;
     }
 
-    @Singleton
-    @Provides
-    SettingsManager provideSettingsManager(Context context) {
-
-        return new SettingsManager(context);
-    }
 }
