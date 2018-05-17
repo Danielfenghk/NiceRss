@@ -3,12 +3,15 @@ package com.appsbrook.nicerss.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import com.appsbrook.nicerss.R;
+import com.appsbrook.nicerss.data.SettingsManager;
 import com.appsbrook.nicerss.ui.adapters.IntroductionPagerAdapter;
 
 import butterknife.BindView;
@@ -18,10 +21,15 @@ import butterknife.OnClick;
 public class IntroductionActivity extends AppCompatActivity
         implements ViewPager.OnPageChangeListener {
 
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     @BindView(R.id.next_image_button)
     ImageButton nextImageButton;
+
+    private IntroductionPagerAdapter adapter;
+    private SettingsManager settingsManager;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, IntroductionActivity.class);
@@ -37,17 +45,20 @@ public class IntroductionActivity extends AppCompatActivity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        runOnce();
 
-
-        //run once
-
-        IntroductionPagerAdapter adapter = new IntroductionPagerAdapter(getSupportFragmentManager());
+        adapter = new IntroductionPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
     }
 
-    @OnClick(R.id.next_image_button)
-    public void onViewClicked() {
+    private void runOnce() {
+
+        settingsManager = new SettingsManager(this);
+        boolean firstLaunch = settingsManager.isFirstLaunch();
+        if (!firstLaunch) {
+            openMainActivity();
+        }
     }
 
     @Override
@@ -73,5 +84,23 @@ public class IntroductionActivity extends AppCompatActivity
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @OnClick(R.id.next_image_button)
+    public void onViewClicked() {
+
+        if (viewPager.getCurrentItem() == 2) {
+
+            settingsManager.setFirstLaunch(false);
+            openMainActivity();
+        } else {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+        }
+    }
+
+    private void openMainActivity() {
+        Intent intent = MainActivity.newIntent(this);
+        startActivity(intent);
+        finish();
     }
 }
