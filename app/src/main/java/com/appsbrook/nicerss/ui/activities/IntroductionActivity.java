@@ -10,9 +10,12 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import com.appsbrook.nicerss.R;
+import com.appsbrook.nicerss.TheApp;
 import com.appsbrook.nicerss.data.SettingsManager;
 import com.appsbrook.nicerss.ui.adapters.IntroductionPagerAdapter;
 import com.appsbrook.nicerss.utils.FadePageTransformerUtil;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,8 +31,10 @@ public class IntroductionActivity extends AppCompatActivity
     @BindView(R.id.next_image_button)
     ImageButton nextImageButton;
 
+    @Inject
+    SettingsManager settingsManager;
+
     private IntroductionPagerAdapter adapter;
-    private SettingsManager settingsManager;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, IntroductionActivity.class);
@@ -37,6 +42,8 @@ public class IntroductionActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        TheApp.getAppComponent().inject(this);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_introduction);
@@ -56,7 +63,6 @@ public class IntroductionActivity extends AppCompatActivity
 
     private void runOnce() {
 
-        settingsManager = new SettingsManager(this);
         boolean firstLaunch = settingsManager.isFirstLaunch();
         if (!firstLaunch) {
             openMainActivity();

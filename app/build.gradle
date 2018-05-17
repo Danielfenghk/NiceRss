@@ -93,4 +93,15 @@ dependencies {
     // Android Debug Database
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
 
+    // Cicerone
+    implementation 'ru.terrakok.cicerone:cicerone:1.0'
+
+    // Dagger 2
+    implementation 'com.google.dagger:dagger:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+    implementation 'com.google.dagger:dagger-android:2.14.1'
+    implementation 'com.google.dagger:dagger-android-support:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
+
+
 }
