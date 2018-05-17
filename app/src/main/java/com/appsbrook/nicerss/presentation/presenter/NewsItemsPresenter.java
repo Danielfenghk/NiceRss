@@ -1,6 +1,7 @@
 package com.appsbrook.nicerss.presentation.presenter;
 
 
+import com.appsbrook.nicerss.interactors.NewsItemsLoaderInteractor;
 import com.appsbrook.nicerss.presentation.view.NewsItemsView;
 import com.appsbrook.nicerss.ui.adapters.NewsItemsAdapter;
 import com.arellomobile.mvp.InjectViewState;
@@ -14,13 +15,32 @@ import timber.log.Timber;
 
 @DebugLog
 @InjectViewState
-public class NewsItemsPresenter extends MvpPresenter<NewsItemsView> {
+public class NewsItemsPresenter extends MvpPresenter<NewsItemsView>
+        implements INewsItemsPresenter {
+
+    private NewsItemsLoaderInteractor interactor;
+
+    public NewsItemsPresenter() {
+
+        interactor = new NewsItemsLoaderInteractor();
+    }
 
     public void loadNewsItems() {
 
-        List<String> items = Arrays.asList("Batman", "Superman", "Spiderman", "Joker", "James");
+        interactor.loadNewsItems(this);
+    }
+
+    @Override
+    public void onLoadSuccess(List<String> items) {
 
         getViewState().updateNewsItems(items);
         getViewState().hideNoItemsDisplay();
+    }
+
+    @Override
+    public void onLoadFail(String message) {
+
+        getViewState().reportLoadFailed(message);
+        getViewState().showNoItemsDisplay();
     }
 }

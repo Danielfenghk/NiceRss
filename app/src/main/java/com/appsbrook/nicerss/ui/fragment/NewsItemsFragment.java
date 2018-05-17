@@ -2,12 +2,14 @@ package com.appsbrook.nicerss.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +21,6 @@ import com.appsbrook.nicerss.ui.adapters.NewsItemsAdapter;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,6 +36,8 @@ public class NewsItemsFragment extends MvpAppCompatFragment
     LinearLayout noItemsLinearLayout;
     @BindView(R.id.refresh_image_view)
     ImageView refreshImageView;
+    @BindView(R.id.frame_layout)
+    FrameLayout frameLayout;
 
     private NewsItemsAdapter adapter;
     Unbinder unbinder;
@@ -67,8 +70,6 @@ public class NewsItemsFragment extends MvpAppCompatFragment
 
         View view = inflater.inflate(R.layout.fragment_news_items, container, false);
         unbinder = ButterKnife.bind(this, view);
-
-
 
         return view;
     }
@@ -110,5 +111,19 @@ public class NewsItemsFragment extends MvpAppCompatFragment
 
         noItemsLinearLayout.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showNoItemsDisplay() {
+
+        noItemsLinearLayout.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void reportLoadFailed(String message) {
+
+        Snackbar.make(frameLayout, message, Snackbar.LENGTH_SHORT).show();
+
     }
 }
