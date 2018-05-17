@@ -1,4 +1,4 @@
-package com.appsbrook.timister;
+package com.appsbrook.nicerss;
 
 import org.junit.Test;
 

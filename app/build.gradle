@@ -4,6 +4,25 @@ def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+        google()
+    }
+
+    dependencies {
+
+        // Hugo logging
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+    }
+}
+
+// Hugo logging
+apply plugin: 'com.jakewharton.hugo'
+
 android {
 
     signingConfigs {
@@ -17,7 +36,7 @@ android {
 
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.appsbrook.timister"
+        applicationId "com.appsbrook.nicerss"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
@@ -30,6 +49,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
+        // For Android Debug Database
+        debug {
+            resValue("string", "PORT_NUMBER", "8080")
+        }
     }
 }
 
@@ -39,13 +62,35 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:design:27.1.1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Moxy
+    implementation 'com.arello-mobile:moxy:1.5.3'
+    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
+    implementation 'com.arello-mobile:moxy-android:1.5.3'
+    implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+
     // Timber
     implementation 'com.jakewharton.timber:timber:4.6.0'
+
     // Logger
     implementation 'com.orhanobut:logger:2.1.1'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+    annotationProcessor 'org.projectlombok:lombok:1.16.20'
+
+    // Butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    // Android Debug Database
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
+
 }

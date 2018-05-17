@@ -1,11 +1,14 @@
-package com.appsbrook.timister.ui.splash;
+package com.appsbrook.nicerss.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.appsbrook.timister.ui.main.MainActivity;
+import com.appsbrook.nicerss.ui.activity.MainActivity;
 
+import hugo.weaving.DebugLog;
+
+@DebugLog
 public class SplashActivity extends AppCompatActivity {
 
     @Override
