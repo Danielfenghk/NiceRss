@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class RssItemsFragment extends MvpAppCompatFragment
-        implements RssItemsView, SwipeRefreshLayout.OnRefreshListener {
+        implements RssItemsView, SwipeRefreshLayout.OnRefreshListener, RssItemsAdapter.HostingComponent {
 
     @InjectPresenter
     RssItemsPresenter presenter;
@@ -82,7 +82,7 @@ public class RssItemsFragment extends MvpAppCompatFragment
         swipeRefreshLayout.setOnRefreshListener(this);
 
         newsItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new RssItemsAdapter();
+        adapter = new RssItemsAdapter(this);
         newsItemsRecyclerView.setAdapter(adapter);
     }
 
@@ -99,14 +99,17 @@ public class RssItemsFragment extends MvpAppCompatFragment
 
         String url = "https://www.technologyreview.com/c/computing/rss/";
 
-        presenter.loadNewsItems(url);
+        String url2 = "http://feeds.arstechnica.com/arstechnica/index?format=xml";
+        String url3 = "http://feeds.reuters.com/reuters/topNews?format=xml";
+        String url4 = "http://feeds.ign.com/ign/all?format=xml";
+
+        presenter.loadNewsItems(url2);
     }
 
     @Override
     public void updateNewsItems(List<RssItem> items) {
 
         adapter.updateNewsItems(items);
-
     }
 
     @Override
@@ -128,5 +131,13 @@ public class RssItemsFragment extends MvpAppCompatFragment
 
         Snackbar.make(frameLayout, message, Snackbar.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onRssItemClick(RssItem item) {
+
+        Snackbar.make(frameLayout, "Item Clicked: " + item.getTitle(),
+                Snackbar.LENGTH_SHORT)
+                .show();
     }
 }

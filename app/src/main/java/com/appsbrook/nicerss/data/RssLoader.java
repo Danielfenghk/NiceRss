@@ -49,7 +49,6 @@ public class RssLoader {
                             categories, author, pubDate, link, image);
 
                     items.add(item);
-
                 }
 
                 interactor.onLoadSuccess(items);
@@ -60,8 +59,6 @@ public class RssLoader {
 
                 interactor.onLoadFail();
             }
-
         });
-
     }
 }

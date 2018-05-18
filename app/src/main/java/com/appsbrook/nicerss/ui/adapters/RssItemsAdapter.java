@@ -19,11 +19,20 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
 
     private List<RssItem> items;
 
-    public RssItemsAdapter() {
+    private HostingComponent hostingComponent;
+
+    public interface HostingComponent{
+
+        void onRssItemClick(RssItem item);
     }
 
-    public RssItemsAdapter(List<RssItem> items) {
+    public RssItemsAdapter(HostingComponent hostingComponent) {
+        this.hostingComponent = hostingComponent;
+    }
+
+    public RssItemsAdapter(List<RssItem> items, HostingComponent hostingComponent) {
         this.items = items;
+        this.hostingComponent = hostingComponent;
     }
 
     @NonNull
@@ -55,16 +64,21 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
         notifyDataSetChanged();
     }
 
-    static class RssItemViewHolder extends RecyclerView.ViewHolder {
+    class RssItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private RssItem item;
 
         @BindView(R.id.title_text_view)
         TextView titleTextView;
 
+        @BindView(R.id.publication_date_text_view)
+        TextView publicationDateTextView;
+
         RssItemViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+
+            view.setOnClickListener(this);
         }
 
         void bind(RssItem item) {
@@ -72,6 +86,12 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
             this.item = item;
 
             titleTextView.setText(item.getTitle());
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            hostingComponent.onRssItemClick(item);
         }
     }
 }
