@@ -3,8 +3,8 @@ package com.appsbrook.nicerss.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
@@ -24,13 +24,23 @@ public class RssItemActivity extends MvpAppCompatActivity implements RssItemView
 
     private static final String EXTRA_RSS_ITEM = "EXTRA_RSS_ITEM";
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.rss_item_text_view)
-    TextView rssItemTextView;
-
     @InjectPresenter
     RssItemPresenter mRssItemPresenter;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.rss_item_title_text_view)
+    TextView rssItemTextView;
+    @BindView(R.id.rss_item_image_view)
+    ImageView rssItemImageView;
+    @BindView(R.id.rss_item_description_text_view)
+    TextView rssItemDescriptionTextView;
+    @BindView(R.id.rss_item_author_text_view)
+    TextView rssItemAuthorTextView;
+    @BindView(R.id.rss_item_date_text_view)
+    TextView rssItemDateTextView;
+    @BindView(R.id.rss_item_link_text_view)
+    TextView rssItemLinkTextView;
 
     @ProvidePresenter
     RssItemPresenter provideRssItemPresenter() {
@@ -63,7 +73,32 @@ public class RssItemActivity extends MvpAppCompatActivity implements RssItemView
 
     @Override
     public void showItemTitle(String title) {
-
         rssItemTextView.setText(title);
+    }
+
+    @Override
+    public void showItemDescription(String description) {
+        rssItemDescriptionTextView.setText(description);
+    }
+
+    @Override
+    public void showItemAuthor(String author) {
+        rssItemAuthorTextView.setText(author);
+    }
+
+    @Override
+    public void showItemImage(String image) {
+
+        // TODO
+    }
+
+    @Override
+    public void showPublicationDate(String pubDate) {
+        rssItemDateTextView.setText(pubDate);
+    }
+
+    @Override
+    public void showItemLink(String link) {
+        rssItemLinkTextView.setText(link);
     }
 }

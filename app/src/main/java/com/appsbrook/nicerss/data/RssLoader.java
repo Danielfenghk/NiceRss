@@ -46,7 +46,7 @@ public class RssLoader {
                             + "Content: " + content + "\n");
 
                     RssItem item = new RssItem(title, description,
-                            categories, author, pubDate, link, image);
+                            author, pubDate, link, image);
 
                     items.add(item);
                 }

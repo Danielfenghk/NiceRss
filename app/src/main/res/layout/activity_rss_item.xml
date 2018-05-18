@@ -21,21 +21,47 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".ui.activity.DemoActivity"
-        tools:showIn="@layout/activity_demo">
+        >
 
         <TextView
-            android:id="@+id/rss_item_text_view"
+            android:id="@+id/rss_item_title_text_view"
+            android:text="This is RSS title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    </android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/rss_item_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:id="@+id/rss_item_description_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/rss_item_author_text_view"
+            android:text="Description goes here..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/rss_item_date_text_view"
+            android:text="2018.01.01 12:30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/rss_item_link_text_view"
+            android:text="http://www.example.com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -15,7 +15,6 @@ public class RssItem implements Parcelable {
 
     private String title;
     private String description;
-    private List<String> categories;
     private String author;
     private Date pubDate;
     private String link;
@@ -31,7 +30,6 @@ public class RssItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.title);
         dest.writeString(this.description);
-        dest.writeStringList(this.categories);
         dest.writeString(this.author);
         dest.writeLong(this.pubDate != null ? this.pubDate.getTime() : -1);
         dest.writeString(this.link);
@@ -41,7 +39,6 @@ public class RssItem implements Parcelable {
     protected RssItem(Parcel in) {
         this.title = in.readString();
         this.description = in.readString();
-        this.categories = in.createStringArrayList();
         this.author = in.readString();
         long tmpPubDate = in.readLong();
         this.pubDate = tmpPubDate == -1 ? null : new Date(tmpPubDate);
@@ -49,7 +46,7 @@ public class RssItem implements Parcelable {
         this.image = in.readString();
     }
 
-    public static final Parcelable.Creator<RssItem> CREATOR = new Parcelable.Creator<RssItem>() {
+    public static final Creator<RssItem> CREATOR = new Creator<RssItem>() {
         @Override
         public RssItem createFromParcel(Parcel source) {
             return new RssItem(source);
