@@ -4,4 +4,5 @@ import com.arellomobile.mvp.MvpView;
 
 public interface RssItemView extends MvpView {
 
+    void showItemTitle(String title);
 }
