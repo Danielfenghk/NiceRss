@@ -125,7 +125,7 @@ public class RssItemsFragment extends MvpAppCompatFragment
     public void showNoItemsDisplay() {
 
         noItemsLinearLayout.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setRefreshing(false);
+//        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
