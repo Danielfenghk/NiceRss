@@ -2,21 +2,21 @@ package com.appsbrook.nicerss.interactors;
 
 import com.appsbrook.nicerss.data.RssItem;
 import com.appsbrook.nicerss.data.RssLoader;
-import com.appsbrook.nicerss.presentation.presenter.INewsItemsPresenter;
-import com.appsbrook.nicerss.presentation.presenter.NewsItemsPresenter;
+import com.appsbrook.nicerss.presentation.presenter.IRssItemsPresenter;
+import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;
 
 import java.util.List;
 
 import hugo.weaving.DebugLog;
 
 @DebugLog
-public class NewsItemsLoaderInteractor implements INewsItemsLoaderInteractor {
+public class RssItemsLoaderInteractor implements IRssItemsLoaderInteractor {
 
-    private INewsItemsPresenter presenter;
+    private IRssItemsPresenter presenter;
 
     private RssLoader rssLoader;
 
-    public NewsItemsLoaderInteractor(NewsItemsPresenter presenter) {
+    public RssItemsLoaderInteractor(RssItemsPresenter presenter) {
         this.presenter = presenter;
 
         rssLoader = new RssLoader();

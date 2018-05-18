@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.data.RssItem;
-import com.appsbrook.nicerss.presentation.presenter.NewsItemsPresenter;
-import com.appsbrook.nicerss.presentation.view.NewsItemsView;
-import com.appsbrook.nicerss.ui.adapters.NewsItemsAdapter;
+import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;
+import com.appsbrook.nicerss.presentation.view.RssItemsView;
+import com.appsbrook.nicerss.ui.adapters.RssItemsAdapter;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -28,13 +28,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class NewsItemsFragment extends MvpAppCompatFragment
-        implements NewsItemsView, SwipeRefreshLayout.OnRefreshListener {
+public class RssItemsFragment extends MvpAppCompatFragment
+        implements RssItemsView, SwipeRefreshLayout.OnRefreshListener {
 
     @InjectPresenter
-    NewsItemsPresenter presenter;
+    RssItemsPresenter presenter;
 
-    private NewsItemsAdapter adapter;
+    private RssItemsAdapter adapter;
     Unbinder unbinder;
 
     @BindView(R.id.no_items_linear_layout)
@@ -50,12 +50,12 @@ public class NewsItemsFragment extends MvpAppCompatFragment
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    public NewsItemsFragment() {
+    public RssItemsFragment() {
     }
 
-    public static NewsItemsFragment newInstance() {
+    public static RssItemsFragment newInstance() {
 
-        return new NewsItemsFragment();
+        return new RssItemsFragment();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class NewsItemsFragment extends MvpAppCompatFragment
         swipeRefreshLayout.setOnRefreshListener(this);
 
         newsItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new NewsItemsAdapter();
+        adapter = new RssItemsAdapter();
         newsItemsRecyclerView.setAdapter(adapter);
     }
 

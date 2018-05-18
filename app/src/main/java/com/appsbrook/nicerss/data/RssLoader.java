@@ -1,6 +1,6 @@
 package com.appsbrook.nicerss.data;
 
-import com.appsbrook.nicerss.interactors.INewsItemsLoaderInteractor;
+import com.appsbrook.nicerss.interactors.IRssItemsLoaderInteractor;
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
 
@@ -13,7 +13,7 @@ import timber.log.Timber;
 public class RssLoader {
 
     public void loadRssItems(String url,
-                             final INewsItemsLoaderInteractor interactor) {
+                             final IRssItemsLoaderInteractor interactor) {
 
         final List<RssItem> items = new ArrayList<>();
 

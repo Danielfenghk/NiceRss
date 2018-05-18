@@ -15,29 +15,29 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsItemsAdapter extends RecyclerView.Adapter<NewsItemsAdapter.NewsItemViewHolder> {
+public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssItemViewHolder> {
 
     private List<RssItem> items;
 
-    public NewsItemsAdapter() {
+    public RssItemsAdapter() {
     }
 
-    public NewsItemsAdapter(List<RssItem> items) {
+    public RssItemsAdapter(List<RssItem> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
-    public NewsItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RssItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.news_item, parent, false);
 
-        return new NewsItemViewHolder(view);
+        return new RssItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RssItemViewHolder holder, int position) {
 
         RssItem item = items.get(position);
 
@@ -55,14 +55,14 @@ public class NewsItemsAdapter extends RecyclerView.Adapter<NewsItemsAdapter.News
         notifyDataSetChanged();
     }
 
-    static class NewsItemViewHolder extends RecyclerView.ViewHolder {
+    static class RssItemViewHolder extends RecyclerView.ViewHolder {
 
         private RssItem item;
 
         @BindView(R.id.title_text_view)
         TextView titleTextView;
 
-        NewsItemViewHolder(View view) {
+        RssItemViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

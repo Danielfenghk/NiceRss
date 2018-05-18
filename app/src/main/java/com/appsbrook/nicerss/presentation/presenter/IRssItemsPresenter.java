@@ -4,7 +4,7 @@ import com.appsbrook.nicerss.data.RssItem;
 
 import java.util.List;
 
-public interface INewsItemsPresenter {
+public interface IRssItemsPresenter {
 
     void onLoadSuccess(List<RssItem> items);
 

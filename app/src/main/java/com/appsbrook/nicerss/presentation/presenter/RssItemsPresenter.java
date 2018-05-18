@@ -2,8 +2,8 @@ package com.appsbrook.nicerss.presentation.presenter;
 
 
 import com.appsbrook.nicerss.data.RssItem;
-import com.appsbrook.nicerss.interactors.NewsItemsLoaderInteractor;
-import com.appsbrook.nicerss.presentation.view.NewsItemsView;
+import com.appsbrook.nicerss.interactors.RssItemsLoaderInteractor;
+import com.appsbrook.nicerss.presentation.view.RssItemsView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -13,14 +13,14 @@ import hugo.weaving.DebugLog;
 
 @DebugLog
 @InjectViewState
-public class NewsItemsPresenter extends MvpPresenter<NewsItemsView>
-        implements INewsItemsPresenter {
+public class RssItemsPresenter extends MvpPresenter<RssItemsView>
+        implements IRssItemsPresenter {
 
-    private NewsItemsLoaderInteractor interactor;
+    private RssItemsLoaderInteractor interactor;
 
-    public NewsItemsPresenter() {
+    public RssItemsPresenter() {
 
-        interactor = new NewsItemsLoaderInteractor(this);
+        interactor = new RssItemsLoaderInteractor(this);
     }
 
     public void loadNewsItems(String url) {

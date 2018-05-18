@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.presentation.presenter.MainMvpPresenter;
 import com.appsbrook.nicerss.presentation.view.MainMvpView;
-import com.appsbrook.nicerss.ui.fragment.NewsItemsFragment;
+import com.appsbrook.nicerss.ui.fragment.RssItemsFragment;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -67,7 +67,7 @@ public class MainActivity extends MvpAppCompatActivity
         if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, NewsItemsFragment.newInstance())
+                    .add(R.id.fragment_container, RssItemsFragment.newInstance())
                     .commit();
         }
     }
