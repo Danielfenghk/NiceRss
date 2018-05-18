@@ -25,6 +25,8 @@ public class IntroductionFragment extends Fragment {
 
     private static final String ARG_PAGE_NUMBER = "ARG_PAGE_NUMBER";
 
+    Unbinder unbinder;
+
     @BindView(R.id.relative_layout_fragment_splash)
     RelativeLayout relativeLayoutFragmentSplash;
     @BindView(R.id.text_view_splash_title)
@@ -45,8 +47,6 @@ public class IntroductionFragment extends Fragment {
     ImageView imageViewSelectedDot2;
     @BindView(R.id.image_view_selected_dot_3)
     ImageView imageViewSelectedDot3;
-
-    Unbinder unbinder;
 
     public static Fragment newInstance(int position) {
 
@@ -76,15 +76,15 @@ public class IntroductionFragment extends Fragment {
 
         switch (pageNumber) {
 
-            case 1:
+            case 0:
                 processPage("Page 1", "Page 1 description", R.drawable.ic_intro_one,
                         R.color.md_blue_grey_500, View.VISIBLE, View.INVISIBLE, View.INVISIBLE);
                 break;
-            case 2:
+            case 1:
                 processPage("Page 2", "Page 2 description", R.drawable.ic_intro_two,
                         R.color.colorAccent, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
                 break;
-            case 3:
+            case 2:
                 processPage("Page 3", "Page 3 description", R.drawable.ic_intro_three,
                         R.color.colorPrimary, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
                 break;

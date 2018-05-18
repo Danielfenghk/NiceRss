@@ -7,7 +7,6 @@ import java.util.List;
 
 public class NewsItemsLoaderInteractor {
 
-
     public void loadNewsItems(INewsItemsPresenter presenter) {
 
         List<String> items = Arrays.asList("Batman", "Superman", "Spiderman", "Joker", "James");

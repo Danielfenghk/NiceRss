@@ -32,16 +32,16 @@ public class NewsItemsFragment extends MvpAppCompatFragment
 
     @InjectPresenter
     NewsItemsPresenter presenter;
+
+    private NewsItemsAdapter adapter;
+    Unbinder unbinder;
+
     @BindView(R.id.no_items_linear_layout)
     LinearLayout noItemsLinearLayout;
     @BindView(R.id.refresh_image_view)
     ImageView refreshImageView;
     @BindView(R.id.frame_layout)
     FrameLayout frameLayout;
-
-    private NewsItemsAdapter adapter;
-    Unbinder unbinder;
-
     @BindView(R.id.no_items_text_view)
     TextView noItemsTextView;
     @BindView(R.id.news_items_recycler_view)
@@ -53,8 +53,8 @@ public class NewsItemsFragment extends MvpAppCompatFragment
     }
 
     public static NewsItemsFragment newInstance() {
-        NewsItemsFragment fragment = new NewsItemsFragment();
-        return fragment;
+
+        return new NewsItemsFragment();
     }
 
     @Override
@@ -78,7 +78,6 @@ public class NewsItemsFragment extends MvpAppCompatFragment
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         swipeRefreshLayout.setOnRefreshListener(this);
 
         newsItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -90,6 +89,7 @@ public class NewsItemsFragment extends MvpAppCompatFragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         unbinder.unbind();
     }
 

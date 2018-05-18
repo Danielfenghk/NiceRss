@@ -73,6 +73,7 @@ public class IntroductionActivity extends AppCompatActivity
 
     @Override
     public void onPageSelected(int position) {
+
         switch (position) {
             case 0:
                 nextImageButton.setImageResource(R.drawable.ic_arrow_forward);
@@ -97,7 +98,7 @@ public class IntroductionActivity extends AppCompatActivity
     }
 
     @OnClick(R.id.next_image_button)
-    public void onViewClicked() {
+    public void onNextImageButtonClick() {
 
         if (viewPager.getCurrentItem() == 2) {
 
@@ -108,6 +109,7 @@ public class IntroductionActivity extends AppCompatActivity
         }
     }
 
+    // TODO replace by cicerone
     private void openMainActivity() {
 
         Intent intent = MainActivity.newIntent(this);

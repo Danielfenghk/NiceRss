@@ -10,15 +10,16 @@ import hugo.weaving.DebugLog;
 @InjectViewState
 public class MainMvpPresenter extends MvpPresenter<MainMvpView> {
 
-    int count = 0;
-
     public MainMvpPresenter() {
-
     }
-
 
     public void onSettingsClick() {
 
         getViewState().showSettings();
+    }
+
+    public void processAddNewSourceClick() {
+
+        getViewState().showAddNewSourceDialog();
     }
 }

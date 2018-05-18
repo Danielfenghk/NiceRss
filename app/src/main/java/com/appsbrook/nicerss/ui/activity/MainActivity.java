@@ -3,6 +3,8 @@ package com.appsbrook.nicerss.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,16 +31,18 @@ public class MainActivity extends MvpAppCompatActivity
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
 
-    @OnClick(R.id.fab)
-    void onFabClicked() {
+    @OnClick(R.id.add_new_source_button)
+    void onAddNewSourceButtonClick() {
 
+        presenter.processAddNewSourceClick();
     }
 
     public static Intent newIntent(Context context) {
 
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 
     @Override
@@ -49,10 +53,8 @@ public class MainActivity extends MvpAppCompatActivity
         ButterKnife.bind(this);
 
         setupToolbar();
-
         setupFragment();
     }
-
 
     private void setupToolbar() {
 
@@ -61,7 +63,8 @@ public class MainActivity extends MvpAppCompatActivity
 
     private void setupFragment() {
 
-        if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
+        // TODO use cicerone to add/replace fragments
+        if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, NewsItemsFragment.newInstance())
@@ -95,5 +98,11 @@ public class MainActivity extends MvpAppCompatActivity
     public void showSettings() {
 
         Toast.makeText(this, "Settings clicked!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showAddNewSourceDialog() {
+
+        Snackbar.make(coordinatorLayout, "FAB is clicked!", Snackbar.LENGTH_SHORT).show();
     }
 }
