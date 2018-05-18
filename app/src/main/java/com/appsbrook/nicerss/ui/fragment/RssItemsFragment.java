@@ -1,5 +1,6 @@
 package com.appsbrook.nicerss.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.data.RssItem;
 import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;
 import com.appsbrook.nicerss.presentation.view.RssItemsView;
+import com.appsbrook.nicerss.ui.activity.RssItemActivity;
 import com.appsbrook.nicerss.ui.adapters.RssItemsAdapter;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -139,5 +141,8 @@ public class RssItemsFragment extends MvpAppCompatFragment
         Snackbar.make(frameLayout, "Item Clicked: " + item.getTitle(),
                 Snackbar.LENGTH_SHORT)
                 .show();
+
+        Intent intent = RssItemActivity.getIntent(getActivity(), item);
+        startActivity(intent);
     }
 }
