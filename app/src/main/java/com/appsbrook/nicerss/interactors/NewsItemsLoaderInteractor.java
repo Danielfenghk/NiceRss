@@ -1,21 +1,41 @@
 package com.appsbrook.nicerss.interactors;
 
+import com.appsbrook.nicerss.data.RssItem;
+import com.appsbrook.nicerss.data.RssLoader;
 import com.appsbrook.nicerss.presentation.presenter.INewsItemsPresenter;
+import com.appsbrook.nicerss.presentation.presenter.NewsItemsPresenter;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class NewsItemsLoaderInteractor {
+import hugo.weaving.DebugLog;
 
-    public void loadNewsItems(INewsItemsPresenter presenter) {
+@DebugLog
+public class NewsItemsLoaderInteractor implements INewsItemsLoaderInteractor {
 
-        List<String> items = Arrays.asList("Batman", "Superman", "Spiderman", "Joker", "James");
+    private INewsItemsPresenter presenter;
 
-        if (true) {
-            presenter.onLoadSuccess(items);
-        } else {
-            String message = "Failed to load news items!";
-            presenter.onLoadFail(message);
-        }
+    private RssLoader rssLoader;
+
+    public NewsItemsLoaderInteractor(NewsItemsPresenter presenter) {
+        this.presenter = presenter;
+
+        rssLoader = new RssLoader();
+    }
+
+    public void loadNewsItems(String url) {
+
+        rssLoader.loadRssItems(url, this);
+    }
+
+    @Override
+    public void onLoadSuccess(List<RssItem> items) {
+
+        presenter.onLoadSuccess(items);
+    }
+
+    @Override
+    public void onLoadFail() {
+
+        presenter.onLoadFail("Failed to load or parse RSS feed.");
     }
 }

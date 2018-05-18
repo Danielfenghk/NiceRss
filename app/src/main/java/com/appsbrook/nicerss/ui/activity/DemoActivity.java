@@ -26,12 +26,18 @@ public class DemoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String url = "http://www.feedforall.com/sample.xml";
+        String url2 = "https://www.technologyreview.com/c/computing/rss/";
+        String url3 = "https://www.economist.com/sections/economics/rss.xml";
+
+        parseRss(url2);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                parseRss();
+
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -39,10 +45,9 @@ public class DemoActivity extends AppCompatActivity {
         });
     }
 
-    private void parseRss() {
+    private void parseRss(String urlString) {
 
         //url of RSS feed
-        String urlString = "http://www.feedforall.com/sample.xml";
         Parser parser = new Parser();
         parser.execute(urlString);
         parser.onFinish(new Parser.OnTaskCompleted() {
@@ -53,13 +58,12 @@ public class DemoActivity extends AppCompatActivity {
                 for (Article article : list) {
 
                     String title = article.getTitle();
-                    String author = article.getAuthor();
-                    String content = article.getContent();
                     String description = article.getDescription();
-                    String image = article.getImage();
-                    List<String> categories = article.getCategories();
-                    Date pubDate = article.getPubDate();
                     String link = article.getLink();
+                    Date pubDate = article.getPubDate();
+                    String author = article.getAuthor();
+                    List<String> categories = article.getCategories();
+                    String image = article.getImage();
 
                     Timber.d("Title: " + title + "\n"
                             + "Author: " + author + "\n"
@@ -67,8 +71,7 @@ public class DemoActivity extends AppCompatActivity {
                             + "Image: " + image + "\n"
                             + "Categories: " + categories + "\n"
                             + "Publication date: " + pubDate + "\n"
-                            + "Link: " + link + "\n"
-                            + "Content: " + content + "\n");
+                            + "Link: " + link + "\n");
                 }
             }
 

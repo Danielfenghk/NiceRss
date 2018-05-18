@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
+import com.appsbrook.nicerss.data.RssItem;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -17,12 +17,12 @@ import butterknife.ButterKnife;
 
 public class NewsItemsAdapter extends RecyclerView.Adapter<NewsItemsAdapter.NewsItemViewHolder> {
 
-    private List<String> items;
+    private List<RssItem> items;
 
     public NewsItemsAdapter() {
     }
 
-    public NewsItemsAdapter(List<String> items) {
+    public NewsItemsAdapter(List<RssItem> items) {
         this.items = items;
     }
 
@@ -39,7 +39,7 @@ public class NewsItemsAdapter extends RecyclerView.Adapter<NewsItemsAdapter.News
     @Override
     public void onBindViewHolder(@NonNull NewsItemViewHolder holder, int position) {
 
-        String item = items.get(position);
+        RssItem item = items.get(position);
 
         holder.bind(item);
     }
@@ -50,14 +50,14 @@ public class NewsItemsAdapter extends RecyclerView.Adapter<NewsItemsAdapter.News
         return items != null ? items.size() : 0;
     }
 
-    public void updateNewsItems(List<String> items) {
+    public void updateNewsItems(List<RssItem> items) {
         this.items = items;
         notifyDataSetChanged();
     }
 
     static class NewsItemViewHolder extends RecyclerView.ViewHolder {
 
-        private String item;
+        private RssItem item;
 
         @BindView(R.id.title_text_view)
         TextView titleTextView;
@@ -67,11 +67,11 @@ public class NewsItemsAdapter extends RecyclerView.Adapter<NewsItemsAdapter.News
             ButterKnife.bind(this, view);
         }
 
-        void bind(String item) {
+        void bind(RssItem item) {
 
             this.item = item;
 
-            titleTextView.setText(item);
+            titleTextView.setText(item.getTitle());
         }
     }
 }

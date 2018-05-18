@@ -1,17 +1,15 @@
 package com.appsbrook.nicerss.presentation.presenter;
 
 
+import com.appsbrook.nicerss.data.RssItem;
 import com.appsbrook.nicerss.interactors.NewsItemsLoaderInteractor;
 import com.appsbrook.nicerss.presentation.view.NewsItemsView;
-import com.appsbrook.nicerss.ui.adapters.NewsItemsAdapter;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.Arrays;
 import java.util.List;
 
 import hugo.weaving.DebugLog;
-import timber.log.Timber;
 
 @DebugLog
 @InjectViewState
@@ -22,16 +20,16 @@ public class NewsItemsPresenter extends MvpPresenter<NewsItemsView>
 
     public NewsItemsPresenter() {
 
-        interactor = new NewsItemsLoaderInteractor();
+        interactor = new NewsItemsLoaderInteractor(this);
     }
 
-    public void loadNewsItems() {
+    public void loadNewsItems(String url) {
 
-        interactor.loadNewsItems(this);
+        interactor.loadNewsItems(url);
     }
 
     @Override
-    public void onLoadSuccess(List<String> items) {
+    public void onLoadSuccess(List<RssItem> items) {
 
         getViewState().updateNewsItems(items);
         getViewState().hideNoItemsDisplay();

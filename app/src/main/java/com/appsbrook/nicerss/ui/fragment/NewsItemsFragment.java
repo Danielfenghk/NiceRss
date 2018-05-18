@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
+import com.appsbrook.nicerss.data.RssItem;
 import com.appsbrook.nicerss.presentation.presenter.NewsItemsPresenter;
 import com.appsbrook.nicerss.presentation.view.NewsItemsView;
 import com.appsbrook.nicerss.ui.adapters.NewsItemsAdapter;
@@ -96,11 +97,13 @@ public class NewsItemsFragment extends MvpAppCompatFragment
     @Override
     public void onRefresh() {
 
-        presenter.loadNewsItems();
+        String url = "https://www.technologyreview.com/c/computing/rss/";
+
+        presenter.loadNewsItems(url);
     }
 
     @Override
-    public void updateNewsItems(List<String> items) {
+    public void updateNewsItems(List<RssItem> items) {
 
         adapter.updateNewsItems(items);
 
