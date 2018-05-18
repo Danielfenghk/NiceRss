@@ -14,6 +14,7 @@ import com.appsbrook.nicerss.presentation.view.RssItemView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +90,7 @@ public class RssItemActivity extends MvpAppCompatActivity implements RssItemView
     @Override
     public void showItemImage(String image) {
 
-        // TODO
+        Picasso.with(this).load(image).into(rssItemImageView);
     }
 
     @Override
