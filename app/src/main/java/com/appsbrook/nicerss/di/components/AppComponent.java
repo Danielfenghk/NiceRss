@@ -5,6 +5,7 @@ import com.appsbrook.nicerss.di.modules.AppModule;
 import com.appsbrook.nicerss.interactors.RssItemsLoaderInteractor;
 import com.appsbrook.nicerss.ui.activity.IntroductionActivity;
 import com.appsbrook.nicerss.ui.adapters.RssItemsAdapter;
+import com.appsbrook.nicerss.ui.fragment.RssSourcesFragment;
 
 import javax.inject.Singleton;
 
@@ -21,4 +22,7 @@ public interface AppComponent {
     void inject(TheApp theApp);
 
     void inject(RssItemsAdapter rssItemsAdapter);
+
+    void inject(RssSourcesFragment rssSourcesFragment);
+
 }

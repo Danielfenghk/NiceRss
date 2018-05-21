@@ -8,4 +8,6 @@ import com.arellomobile.mvp.MvpPresenter;
 @InjectViewState
 public class RssSourcesPresenter extends MvpPresenter<RssSourcesView> {
 
+
+
 }
