@@ -6,6 +6,9 @@ import com.appsbrook.nicerss.presentation.view.OneRssItemView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import java.util.Date;
 
 @InjectViewState
@@ -28,8 +31,16 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
 
         getViewState().showItemTitle(title);
         getViewState().showItemDescription(description);
-        getViewState().showItemContent(content);
+
+        Whitelist whitelist = new Whitelist();
+        whitelist.addTags("span", "div");
+        String allowedHtml = Jsoup.clean(content, whitelist);
+
+        getViewState().showItemContent(allowedHtml);
+
+        // TODO format date to look nice
         getViewState().showPublicationDate(date);
+
         getViewState().showItemAuthor(author);
         getViewState().showItemImage(image);
         getViewState().showItemLink(link);

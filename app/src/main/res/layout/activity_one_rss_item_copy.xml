@@ -136,6 +136,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right"
-        app:srcCompat="@drawable/ic_favorite"/>
+        app:srcCompat="@drawable/ic_favorite_border"/>
 
 </android.support.design.widget.CoordinatorLayout>
