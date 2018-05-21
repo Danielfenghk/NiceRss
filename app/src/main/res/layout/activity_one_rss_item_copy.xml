@@ -77,6 +77,14 @@
 
             <View style="@style/divider"/>
 
+            <TextView
+                android:id="@+id/rss_item_link_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_blue_800"
+                android:textStyle="italic"
+                android:text="Open in Web Browser"/>
+
             <ImageView
                 android:id="@+id/rss_item_image_view"
                 android:layout_width="wrap_content"
@@ -118,11 +126,7 @@
             </RelativeLayout>
 
 
-            <TextView
-                android:id="@+id/rss_item_link_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="http://www.example.com"/>
+
 
         </LinearLayout>
 
