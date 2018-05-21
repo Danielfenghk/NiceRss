@@ -2,18 +2,18 @@ package com.appsbrook.nicerss.presentation.presenter;
 
 
 import com.appsbrook.nicerss.data.RssItem;
-import com.appsbrook.nicerss.presentation.view.RssItemView;
+import com.appsbrook.nicerss.presentation.view.OneRssItemView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.Date;
 
 @InjectViewState
-public class RssItemPresenter extends MvpPresenter<RssItemView> {
+public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
 
     private RssItem item;
 
-    public RssItemPresenter(RssItem item) {
+    public OneRssItemPresenter(RssItem item) {
         this.item = item;
 
         String title = item.getTitle();
@@ -22,11 +22,13 @@ public class RssItemPresenter extends MvpPresenter<RssItemView> {
         String author = item.getAuthor();
         String image = item.getImage();
         String link = item.getLink();
+        String content = item.getContent();
 
         String date = pubDate.toString();
 
         getViewState().showItemTitle(title);
         getViewState().showItemDescription(description);
+        getViewState().showItemContent(content);
         getViewState().showPublicationDate(date);
         getViewState().showItemAuthor(author);
         getViewState().showItemImage(image);

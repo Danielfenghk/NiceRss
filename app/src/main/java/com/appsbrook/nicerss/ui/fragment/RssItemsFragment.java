@@ -19,7 +19,7 @@ import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.data.RssItem;
 import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;
 import com.appsbrook.nicerss.presentation.view.RssItemsView;
-import com.appsbrook.nicerss.ui.activity.RssItemActivity;
+import com.appsbrook.nicerss.ui.activity.OneOneRssItemActivity;
 import com.appsbrook.nicerss.ui.adapters.RssItemsAdapter;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -31,7 +31,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class RssItemsFragment extends MvpAppCompatFragment
-        implements RssItemsView, SwipeRefreshLayout.OnRefreshListener, RssItemsAdapter.HostingComponent {
+        implements RssItemsView, SwipeRefreshLayout.OnRefreshListener,
+        RssItemsAdapter.HostingComponent {
 
     @InjectPresenter
     RssItemsPresenter presenter;
@@ -88,7 +89,6 @@ public class RssItemsFragment extends MvpAppCompatFragment
         newsItemsRecyclerView.setAdapter(adapter);
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -132,17 +132,12 @@ public class RssItemsFragment extends MvpAppCompatFragment
     public void reportLoadFailed(String message) {
 
         Snackbar.make(frameLayout, message, Snackbar.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void onRssItemClick(RssItem item) {
 
-        Snackbar.make(frameLayout, "Item Clicked: " + item.getTitle(),
-                Snackbar.LENGTH_SHORT)
-                .show();
-
-        Intent intent = RssItemActivity.getIntent(getActivity(), item);
+        Intent intent = OneOneRssItemActivity.getIntent(getActivity(), item);
         startActivity(intent);
     }
 }

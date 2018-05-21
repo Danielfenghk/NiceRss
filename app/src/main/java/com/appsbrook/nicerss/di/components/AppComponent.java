@@ -1,6 +1,7 @@
 package com.appsbrook.nicerss.di.components;
 
 import com.appsbrook.nicerss.di.modules.AppModule;
+import com.appsbrook.nicerss.interactors.RssItemsLoaderInteractor;
 import com.appsbrook.nicerss.ui.activity.IntroductionActivity;
 
 import javax.inject.Singleton;
@@ -13,4 +14,5 @@ public interface AppComponent {
 
     void inject(IntroductionActivity introductionActivity);
 
+    void inject(RssItemsLoaderInteractor rssItemsLoaderInteractor);
 }

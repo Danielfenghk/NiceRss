@@ -1,11 +1,14 @@
 package com.appsbrook.nicerss.interactors;
 
+import com.appsbrook.nicerss.TheApp;
 import com.appsbrook.nicerss.data.RssItem;
 import com.appsbrook.nicerss.data.RssLoader;
 import com.appsbrook.nicerss.presentation.presenter.IRssItemsPresenter;
 import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import hugo.weaving.DebugLog;
 
@@ -14,12 +17,13 @@ public class RssItemsLoaderInteractor implements IRssItemsLoaderInteractor {
 
     private IRssItemsPresenter presenter;
 
-    private RssLoader rssLoader;
+    @Inject
+    RssLoader rssLoader;
 
     public RssItemsLoaderInteractor(RssItemsPresenter presenter) {
         this.presenter = presenter;
 
-        rssLoader = new RssLoader();
+        TheApp.getAppComponent().inject(this);
     }
 
     public void loadNewsItems(String url) {

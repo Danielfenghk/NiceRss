@@ -19,7 +19,7 @@ public class RssItem implements Parcelable {
     private Date pubDate;
     private String link;
     private String image;
-
+    private String content;
 
     @Override
     public int describeContents() {
@@ -34,6 +34,7 @@ public class RssItem implements Parcelable {
         dest.writeLong(this.pubDate != null ? this.pubDate.getTime() : -1);
         dest.writeString(this.link);
         dest.writeString(this.image);
+        dest.writeString(this.content);
     }
 
     protected RssItem(Parcel in) {
@@ -44,6 +45,7 @@ public class RssItem implements Parcelable {
         this.pubDate = tmpPubDate == -1 ? null : new Date(tmpPubDate);
         this.link = in.readString();
         this.image = in.readString();
+        this.content = in.readString();
     }
 
     public static final Creator<RssItem> CREATOR = new Creator<RssItem>() {

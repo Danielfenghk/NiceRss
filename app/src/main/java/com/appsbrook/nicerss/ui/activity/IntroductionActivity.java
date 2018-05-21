@@ -50,12 +50,12 @@ public class IntroductionActivity extends AppCompatActivity
         setContentView(R.layout.activity_introduction);
         ButterKnife.bind(this);
 
-        runOnce();
+        ensureIntroShownOnlyOnce();
 
         setupViewPager();
     }
 
-    private void runOnce() {
+    private void ensureIntroShownOnlyOnce() {
 
         if (!settingsManager.isFirstLaunch()) {
             openMainActivity();
@@ -89,12 +89,10 @@ public class IntroductionActivity extends AppCompatActivity
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
     @OnClick(R.id.next_image_button)

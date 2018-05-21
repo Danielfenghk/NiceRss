@@ -8,14 +8,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
 public class RssLoader {
 
+    @Inject
+    public RssLoader() {
+    }
+
     public void loadRssItems(String url,
                              final IRssItemsLoaderInteractor interactor) {
-
-        final List<RssItem> items = new ArrayList<>();
 
         //url of RSS feed
         Parser parser = new Parser();
@@ -24,6 +28,8 @@ public class RssLoader {
 
             @Override
             public void onTaskCompleted(ArrayList<Article> list) {
+
+                List<RssItem> items = new ArrayList<>();
 
                 for (Article article : list) {
 
@@ -46,7 +52,7 @@ public class RssLoader {
                             + "Content: " + content + "\n");
 
                     RssItem item = new RssItem(title, description,
-                            author, pubDate, link, image);
+                            author, pubDate, link, image, content);
 
                     items.add(item);
                 }

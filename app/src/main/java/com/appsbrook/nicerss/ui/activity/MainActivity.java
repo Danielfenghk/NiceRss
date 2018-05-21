@@ -29,16 +29,10 @@ public class MainActivity extends MvpAppCompatActivity
     @InjectPresenter
     MainMvpPresenter presenter;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
-
-    @OnClick(R.id.add_new_source_button)
-    void onAddNewSourceButtonClick() {
-
-        presenter.processAddNewSourceClick();
-    }
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     public static Intent newIntent(Context context) {
 
@@ -72,6 +66,19 @@ public class MainActivity extends MvpAppCompatActivity
         }
     }
 
+    @OnClick(R.id.add_new_source_button)
+    void onAddNewSourceButtonClick() {
+
+        presenter.processAddNewSourceClick();
+    }
+
+    @Override
+    public void showAddNewSourceDialog() {
+
+        // TODO implement showAddNewSourceDialog()
+        Snackbar.make(coordinatorLayout, "FAB is clicked!", Snackbar.LENGTH_SHORT).show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -97,12 +104,7 @@ public class MainActivity extends MvpAppCompatActivity
     @Override
     public void showSettings() {
 
+        // TODO implement showSettings()
         Toast.makeText(this, "Settings clicked!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showAddNewSourceDialog() {
-
-        Snackbar.make(coordinatorLayout, "FAB is clicked!", Snackbar.LENGTH_SHORT).show();
     }
 }
