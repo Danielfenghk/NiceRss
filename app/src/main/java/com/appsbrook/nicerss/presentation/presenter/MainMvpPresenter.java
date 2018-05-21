@@ -22,4 +22,9 @@ public class MainMvpPresenter extends MvpPresenter<MainMvpView> {
 
         getViewState().showAddNewSourceDialog();
     }
+
+    public void onRssSourcesClick() {
+
+        getViewState().openRssSourcesActivity();
+    }
 }

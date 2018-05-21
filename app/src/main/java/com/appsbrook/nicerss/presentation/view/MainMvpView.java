@@ -13,4 +13,7 @@ public interface MainMvpView extends MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void showAddNewSourceDialog();
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void openRssSourcesActivity();
 }

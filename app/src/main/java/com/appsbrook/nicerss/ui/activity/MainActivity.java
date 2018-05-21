@@ -79,6 +79,7 @@ public class MainActivity extends MvpAppCompatActivity
         Snackbar.make(coordinatorLayout, "FAB is clicked!", Snackbar.LENGTH_SHORT).show();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -95,6 +96,10 @@ public class MainActivity extends MvpAppCompatActivity
                 presenter.onSettingsClick();
                 break;
 
+            case R.id.action_rss_sources:
+                presenter.onRssSourcesClick();
+                break;
+
             default:
                 throw new RuntimeException("");
         }
@@ -106,5 +111,12 @@ public class MainActivity extends MvpAppCompatActivity
 
         // TODO implement showSettings()
         Toast.makeText(this, "Settings clicked!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void openRssSourcesActivity() {
+
+        Intent intent = RssSourcesActivity.getIntent(this);
+        startActivity(intent);
     }
 }

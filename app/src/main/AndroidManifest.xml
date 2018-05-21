@@ -14,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_nicerss_circle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.activity.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -24,37 +23,38 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.IntroductionActivity"
             android:theme="@style/IntroductionTheme">
         </activity>
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
             android:name=".ui.activity.OneRssItemActivity"
             android:label="Rss Item"
             android:parentActivityName=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.MainActivity"/>
+                android:value=".ui.activity.MainActivity"
+                />
         </activity>
-
         <activity
             android:name=".ui.activity.DemoActivity"
             android:label="@string/title_activity_demo"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
-
+        <activity
+            android:name=".ui.activity.RssSourcesActivity"
+            android:parentActivityName=".ui.activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
     </application>
-</manifest>
 
+</manifest>
