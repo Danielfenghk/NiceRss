@@ -28,4 +28,6 @@
     <dimen name="toolbar_shadow">4dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="padding_splash_dots">37dp</dimen>
+    <dimen name="space">16dp</dimen>
+    <dimen name="headline">25sp</dimen>
 </resources>

@@ -41,6 +41,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -53,6 +55,7 @@ android {
             resValue("string", "PORT_NUMBER", "8080")
         }
     }
+
 }
 
 dependencies {

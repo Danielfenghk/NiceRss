@@ -19,7 +19,7 @@ import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.data.RssItem;
 import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;
 import com.appsbrook.nicerss.presentation.view.RssItemsView;
-import com.appsbrook.nicerss.ui.activity.OneOneRssItemActivity;
+import com.appsbrook.nicerss.ui.activity.OneRssItemActivity;
 import com.appsbrook.nicerss.ui.adapters.RssItemsAdapter;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -137,7 +137,7 @@ public class RssItemsFragment extends MvpAppCompatFragment
     @Override
     public void onRssItemClick(RssItem item) {
 
-        Intent intent = OneOneRssItemActivity.getIntent(getActivity(), item);
+        Intent intent = OneRssItemActivity.getIntent(getActivity(), item);
         startActivity(intent);
     }
 }
