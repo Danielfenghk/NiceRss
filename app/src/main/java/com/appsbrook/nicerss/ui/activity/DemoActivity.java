@@ -27,16 +27,16 @@ public class DemoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         String url = "http://www.feedforall.com/sample.xml";
-        String url2 = "https://www.technologyreview.com/c/computing/rss/";
+        final String url2 = "http://feeds.arstechnica.com/arstechnica/index?format=xml";
         String url3 = "https://www.economist.com/sections/economics/rss.xml";
 
-        parseRss(url2);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                parseRss(url2);
 
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -64,6 +64,7 @@ public class DemoActivity extends AppCompatActivity {
                     String author = article.getAuthor();
                     List<String> categories = article.getCategories();
                     String image = article.getImage();
+                    String content = article.getContent();
 
                     Timber.d("Title: " + title + "\n"
                             + "Author: " + author + "\n"
@@ -71,7 +72,9 @@ public class DemoActivity extends AppCompatActivity {
                             + "Image: " + image + "\n"
                             + "Categories: " + categories + "\n"
                             + "Publication date: " + pubDate + "\n"
-                            + "Link: " + link + "\n");
+                            + "Link: " + link + "\n"
+                            + "Content: " + content + "\n"
+                    );
                 }
             }
 
