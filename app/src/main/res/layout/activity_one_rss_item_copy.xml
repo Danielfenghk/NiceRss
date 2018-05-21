@@ -77,6 +77,10 @@
 
             <View style="@style/divider"/>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space"/>
+
             <TextView
                 android:id="@+id/rss_item_link_text_view"
                 android:layout_width="wrap_content"
@@ -85,12 +89,20 @@
                 android:textStyle="italic"
                 android:text="Open in Web Browser"/>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space"/>
+
             <ImageView
                 android:id="@+id/rss_item_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space"/>
 
             <TextView
                 android:id="@+id/rss_item_description_text_view"
@@ -103,6 +115,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Content goes here..."/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -124,13 +140,7 @@
                     android:text="2018.01.01 12:30"
                     android:textStyle="italic"/>
             </RelativeLayout>
-
-
-
-
         </LinearLayout>
-
-
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton

@@ -1,22 +1,32 @@
 package com.appsbrook.nicerss.ui.adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
+import com.appsbrook.nicerss.TheApp;
 import com.appsbrook.nicerss.data.RssItem;
+import com.appsbrook.nicerss.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssItemViewHolder> {
+
+    @Inject
+    Context appContext;
 
     private List<RssItem> items;
     private HostingComponent hostingComponent;
@@ -28,11 +38,15 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
 
     public RssItemsAdapter(HostingComponent hostingComponent) {
         this.hostingComponent = hostingComponent;
+
+        TheApp.getAppComponent().inject(this);
     }
 
     public RssItemsAdapter(List<RssItem> items, HostingComponent hostingComponent) {
         this.items = items;
         this.hostingComponent = hostingComponent;
+
+        TheApp.getAppComponent().inject(this);
     }
 
     @NonNull
@@ -40,7 +54,7 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
     public RssItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.news_item, parent, false);
+                .inflate(R.layout.rss_item, parent, false);
 
         return new RssItemViewHolder(view);
     }
@@ -96,6 +110,9 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
             this.item = item;
 
             titleTextView.setText(item.getTitle());
+
+            String formattedDate = Utils.formatDate(item.getPubDate());
+            publicationDateTextView.setText(formattedDate);
         }
 
         @Override
