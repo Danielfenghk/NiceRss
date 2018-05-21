@@ -14,4 +14,6 @@ public class RssSource {
     private String name;
     private String url;
     private String category;
+
+
 }

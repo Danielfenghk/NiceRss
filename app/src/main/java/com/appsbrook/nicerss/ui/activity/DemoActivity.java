@@ -30,6 +30,7 @@ public class DemoActivity extends AppCompatActivity {
         final String url2 = "http://feeds.arstechnica.com/arstechnica/index?format=xml";
         String url3 = "https://www.economist.com/sections/economics/rss.xml";
 
+        String name = "Anton Zaviyalov";
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

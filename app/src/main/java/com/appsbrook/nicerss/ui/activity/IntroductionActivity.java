@@ -57,7 +57,9 @@ public class IntroductionActivity extends AppCompatActivity
 
     private void ensureIntroShownOnlyOnce() {
 
-        if (!settingsManager.isFirstLaunch()) {
+        if (settingsManager.isFirstLaunch()) {
+            settingsManager.setFirstLaunch(false);
+        } else {
             openMainActivity();
         }
     }
@@ -99,9 +101,8 @@ public class IntroductionActivity extends AppCompatActivity
     public void onNextImageButtonClick() {
 
         if (viewPager.getCurrentItem() == 2) {
-
-            settingsManager.setFirstLaunch(false);
             openMainActivity();
+
         } else {
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
         }
