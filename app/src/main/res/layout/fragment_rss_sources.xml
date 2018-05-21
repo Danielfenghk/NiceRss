@@ -7,6 +7,7 @@
     tools:context=".ui.fragment.RssSourcesFragment">
 
     <android.support.v7.widget.RecyclerView
+        android:layout_gravity="center_horizontal|center_vertical"
         android:id="@+id/rss_sources_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

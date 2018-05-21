@@ -66,6 +66,10 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupRssSourcesRecyclerView();
+    }
+
+    private void setupRssSourcesRecyclerView() {
         int spanCount = 2;
 
         rssSourcesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
@@ -73,7 +77,6 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         List<RssSource> rssSources = dataManager.getAllRssSources();
         RssSourcesAdapter adapter = new RssSourcesAdapter(this, rssSources);
         rssSourcesRecyclerView.setAdapter(adapter);
-
     }
 
     @Override
@@ -85,6 +88,7 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @Override
     public void onRssSourceClick(RssSource rssSource) {
 
+        // TODO open edit rss source dialog
         Toast.makeText(getActivity(), "Click: " + rssSource, Toast.LENGTH_SHORT).show();
     }
 }
