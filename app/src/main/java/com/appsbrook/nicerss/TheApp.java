@@ -101,15 +101,30 @@ public class TheApp extends Application {
 
             Box<RssSource> rssSourceBox = boxStore.boxFor(RssSource.class);
 
-            RssSource rssSource = new RssSource();
-            rssSource.setName("ArsTechnica");
-            rssSource.setUrl("http://feeds.arstechnica.com/arstechnica/index?format=xml");
-            rssSource.setCategory("Tech");
+            storeRssSource(rssSourceBox, "ArsTechnica",
+                    "http://feeds.arstechnica.com/arstechnica/index?format=xml",
+                    "Tech");
 
-            long id = rssSourceBox.put(rssSource);
-            RssSource storedRssSource = rssSourceBox.get(id);
+            storeRssSource(rssSourceBox, "Reuters",
+                    "http://feeds.reuters.com/reuters/topNews?format=xml",
+                    "News");
 
-            Timber.d("Stored Rss Source: " + storedRssSource);
+            storeRssSource(rssSourceBox, "IGN",
+                    "http://feeds.ign.com/ign/all?format=xml",
+                    "Business");
         }
+    }
+
+    private void storeRssSource(Box<RssSource> rssSourceBox, String name, String url, String category) {
+
+        RssSource rssSource = new RssSource();
+        rssSource.setName(name);
+        rssSource.setUrl(url);
+        rssSource.setCategory(category);
+
+        long id = rssSourceBox.put(rssSource);
+        RssSource storedRssSource = rssSourceBox.get(id);
+
+        Timber.d("Stored Rss Source: " + storedRssSource);
     }
 }
