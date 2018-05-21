@@ -1,6 +1,7 @@
 package com.appsbrook.nicerss.data;
 
 import com.appsbrook.nicerss.interactors.IRssItemsLoaderInteractor;
+import com.appsbrook.nicerss.models.RssSource;
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
 
@@ -15,15 +16,28 @@ import timber.log.Timber;
 public class RssLoader {
 
     @Inject
+    DataManager dataManager;
+
+    @Inject
     public RssLoader() {
     }
 
-    public void loadRssItems(String url,
-                             final IRssItemsLoaderInteractor interactor) {
+    public void loadRssItems(final IRssItemsLoaderInteractor interactor) {
 
-        //url of RSS feed
+        List<RssSource> rssSources = dataManager.getAllRssSources();
+
+        for (RssSource rssSource : rssSources) {
+
+            loadFromOneSource(rssSource, interactor);
+        }
+    }
+
+    private void loadFromOneSource(RssSource rssSource, final IRssItemsLoaderInteractor interactor) {
+
         Parser parser = new Parser();
+        String url = rssSource.getUrl();
         parser.execute(url);
+
         parser.onFinish(new Parser.OnTaskCompleted() {
 
             @Override

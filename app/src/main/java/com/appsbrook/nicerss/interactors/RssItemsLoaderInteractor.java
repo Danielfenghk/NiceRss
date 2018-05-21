@@ -26,9 +26,8 @@ public class RssItemsLoaderInteractor implements IRssItemsLoaderInteractor {
         TheApp.getAppComponent().inject(this);
     }
 
-    public void loadNewsItems(String url) {
-
-        rssLoader.loadRssItems(url, this);
+    public void loadNewsItems() {
+        rssLoader.loadRssItems( this);
     }
 
     @Override

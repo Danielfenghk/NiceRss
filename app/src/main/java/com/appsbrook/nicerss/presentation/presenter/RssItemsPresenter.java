@@ -23,15 +23,15 @@ public class RssItemsPresenter extends MvpPresenter<RssItemsView>
         interactor = new RssItemsLoaderInteractor(this);
     }
 
-    public void loadNewsItems(String url) {
+    public void loadNewsItems() {
 
-        interactor.loadNewsItems(url);
+        interactor.loadNewsItems();
     }
 
     @Override
     public void onLoadSuccess(List<RssItem> items) {
 
-        getViewState().updateNewsItems(items);
+        getViewState().addNewsItems(items);
         getViewState().hideNoItemsDisplay();
     }
 

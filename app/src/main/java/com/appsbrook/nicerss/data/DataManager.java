@@ -2,6 +2,8 @@ package com.appsbrook.nicerss.data;
 
 import com.appsbrook.nicerss.models.RssSource;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.objectbox.Box;
@@ -22,5 +24,10 @@ public class DataManager {
 
     public RssSource getRssSource(long id) {
         return rssSourceBox.get(id);
+    }
+
+    public List<RssSource> getAllRssSources() {
+
+        return rssSourceBox.getAll();
     }
 }

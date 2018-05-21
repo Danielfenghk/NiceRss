@@ -99,13 +99,7 @@ public class RssItemsFragment extends MvpAppCompatFragment
     @Override
     public void onRefresh() {
 
-        String url = "https://www.technologyreview.com/c/computing/rss/";
-
-        String url2 = "http://feeds.arstechnica.com/arstechnica/index?format=xml";
-        String url3 = "http://feeds.reuters.com/reuters/topNews?format=xml";
-        String url4 = "http://feeds.ign.com/ign/all?format=xml";
-
-        presenter.loadNewsItems(url2);
+        presenter.loadNewsItems();
     }
 
     @Override
@@ -126,6 +120,11 @@ public class RssItemsFragment extends MvpAppCompatFragment
 
         noItemsLinearLayout.setVisibility(View.VISIBLE);
 //        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void addNewsItems(List<RssItem> items) {
+        adapter.addNewsItems(items);
     }
 
     @Override

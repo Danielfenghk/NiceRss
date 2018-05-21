@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.data.RssItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,10 +19,9 @@ import butterknife.ButterKnife;
 public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssItemViewHolder> {
 
     private List<RssItem> items;
-
     private HostingComponent hostingComponent;
 
-    public interface HostingComponent{
+    public interface HostingComponent {
 
         void onRssItemClick(RssItem item);
     }
@@ -61,6 +61,16 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
 
     public void updateNewsItems(List<RssItem> items) {
         this.items = items;
+        notifyDataSetChanged();
+    }
+
+    public void addNewsItems(List<RssItem> newItems) {
+
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+
+        items.addAll(newItems);
         notifyDataSetChanged();
     }
 

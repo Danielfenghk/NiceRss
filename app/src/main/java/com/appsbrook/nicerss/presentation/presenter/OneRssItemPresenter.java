@@ -11,38 +11,77 @@ import org.jsoup.safety.Whitelist;
 
 import java.util.Date;
 
+import timber.log.Timber;
+
 @InjectViewState
 public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
 
     private RssItem item;
 
     public OneRssItemPresenter(RssItem item) {
+        Timber.d("OneRssItemPresenter constructor call: " + item);
+
         this.item = item;
+        displayRssItem();
+    }
 
-        String title = item.getTitle();
-        String description = item.getDescription();
-        Date pubDate = item.getPubDate();
-        String author = item.getAuthor();
-        String image = item.getImage();
+    private void displayRssItem() {
+
+        displayTitle();
+        displayDescription();
+        displayContent();
+        displayDate();
+        displayAuthor();
+        displayImage();
+        displayLink();
+    }
+
+    private void displayLink() {
         String link = item.getLink();
+        getViewState().showItemLink(link);
+    }
+
+    private void displayImage() {
+        String image = item.getImage();
+        getViewState().showItemImage(image);
+    }
+
+    private void displayAuthor() {
+        String author = item.getAuthor();
+        getViewState().showItemAuthor(author);
+    }
+
+    private void displayDate() {
+        // TODO format date to look nice
+        Date pubDate = item.getPubDate();
+        String date = pubDate != null ? pubDate.toString() : "";
+        getViewState().showPublicationDate(date);
+    }
+
+    private void displayContent() {
         String content = item.getContent();
+        String processedContent = processHtml(content);
+        getViewState().showItemContent(processedContent);
+    }
 
-        String date = pubDate.toString();
+    private void displayDescription() {
+        String description = item.getDescription();
+        String processedDescription = processHtml(description);
+        getViewState().showItemDescription(processedDescription);
+    }
 
+    private void displayTitle() {
+        String title = item.getTitle();
         getViewState().showItemTitle(title);
-        getViewState().showItemDescription(description);
+    }
+
+    private String processHtml(String html) {
+
+        html = html != null ? html : "";
 
         Whitelist whitelist = new Whitelist();
-        whitelist.addTags("span", "div");
-        String allowedHtml = Jsoup.clean(content, whitelist);
+        whitelist.addTags("span");
 
-        getViewState().showItemContent(allowedHtml);
-
-        // TODO format date to look nice
-        getViewState().showPublicationDate(date);
-
-        getViewState().showItemAuthor(author);
-        getViewState().showItemImage(image);
-        getViewState().showItemLink(link);
+        return Jsoup.clean(html, whitelist);
     }
 }
