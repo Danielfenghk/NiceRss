@@ -32,6 +32,7 @@ public class TheApp extends Application {
     }
 
     private void initializeAppComponent() {
+        Timber.d("init");
 
         appComponent = DaggerAppComponent
                 .builder()
