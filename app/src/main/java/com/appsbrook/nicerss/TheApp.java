@@ -2,11 +2,11 @@ package com.appsbrook.nicerss;
 
 import android.app.Application;
 
+import com.appsbrook.nicerss.data.DataManager;
 import com.appsbrook.nicerss.data.SettingsManager;
 import com.appsbrook.nicerss.di.components.AppComponent;
 import com.appsbrook.nicerss.di.components.DaggerAppComponent;
 import com.appsbrook.nicerss.di.modules.AppModule;
-import com.appsbrook.nicerss.models.MyObjectBox;
 import com.appsbrook.nicerss.models.RssSource;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -15,9 +15,6 @@ import com.orhanobut.logger.Logger;
 import javax.inject.Inject;
 
 import hugo.weaving.DebugLog;
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
-import io.objectbox.android.AndroidObjectBrowser;
 import timber.log.Timber;
 
 @DebugLog
@@ -28,11 +25,8 @@ public class TheApp extends Application {
     @Inject
     SettingsManager settingsManager;
 
-    private BoxStore boxStore;
-
-    public BoxStore getBoxStore() {
-        return boxStore;
-    }
+    @Inject
+    DataManager dataManager;
 
     public static AppComponent getAppComponent() {
         return appComponent;
@@ -47,7 +41,6 @@ public class TheApp extends Application {
         initializeLogging();
         initializeDatabaseDebugging();
 
-        initializeObjectBox();
         initializeSourcesData();
     }
 
@@ -81,17 +74,6 @@ public class TheApp extends Application {
             Stetho.initializeWithDefaults(this);
     }
 
-    private void initializeObjectBox() {
-
-        boxStore = MyObjectBox.builder().androidContext(TheApp.this).build();
-        if (BuildConfig.DEBUG) {
-            boolean started = new AndroidObjectBrowser(boxStore).start(this);
-            Timber.d("ObjectBrowser is started: " + started);
-        }
-
-        Timber.d("Using ObjectBox " + BoxStore.getVersion()
-                + " (" + BoxStore.getVersionNative() + ")");
-    }
 
     private void initializeSourcesData() {
 
@@ -99,31 +81,30 @@ public class TheApp extends Application {
 
         if (settingsManager.isFirstLaunch()) {
 
-            Box<RssSource> rssSourceBox = boxStore.boxFor(RssSource.class);
-
-            storeRssSource(rssSourceBox, "ArsTechnica",
+            storeRssSource("ArsTechnica",
                     "http://feeds.arstechnica.com/arstechnica/index?format=xml",
                     "Tech");
 
-            storeRssSource(rssSourceBox, "Reuters",
+            storeRssSource("Reuters",
                     "http://feeds.reuters.com/reuters/topNews?format=xml",
                     "News");
 
-            storeRssSource(rssSourceBox, "IGN",
+            storeRssSource("IGN",
                     "http://feeds.ign.com/ign/all?format=xml",
                     "Business");
         }
     }
 
-    private void storeRssSource(Box<RssSource> rssSourceBox, String name, String url, String category) {
+    private void storeRssSource(String name,
+                                String url, String category) {
 
         RssSource rssSource = new RssSource();
         rssSource.setName(name);
         rssSource.setUrl(url);
         rssSource.setCategory(category);
 
-        long id = rssSourceBox.put(rssSource);
-        RssSource storedRssSource = rssSourceBox.get(id);
+        long id = dataManager.putRssSource(rssSource);
+        RssSource storedRssSource = dataManager.getRssSource(id);
 
         Timber.d("Stored Rss Source: " + storedRssSource);
     }
