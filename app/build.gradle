@@ -121,6 +121,11 @@ dependencies {
     // Jsoup
     compile 'org.jsoup:jsoup:1.8.1'
 
-
+    // ObjectBox Data Browser
+    debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
+    releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
 
 }
+
+// ObjectBox Data Browser
+apply plugin: 'io.objectbox'
