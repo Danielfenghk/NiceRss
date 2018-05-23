@@ -61,13 +61,12 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         View view = inflater.inflate(R.layout.fragment_rss_sources, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-
         return view;
     }
 
     @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onResume() {
+        super.onResume();
 
         setupRssSourcesRecyclerView();
     }
