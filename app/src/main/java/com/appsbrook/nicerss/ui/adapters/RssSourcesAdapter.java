@@ -24,11 +24,15 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
         void onRssSourceClick(RssSource rssSource);
     }
 
+    public RssSourcesAdapter(RssSourcesAdapterHost rssSourcesAdapterHost) {
+        this.rssSourcesAdapterHost = rssSourcesAdapterHost;
+    }
+
     public RssSourcesAdapter(RssSourcesAdapterHost rssSourcesAdapterHost,
                              List<RssSource> rssSources) {
 
-        this.rssSources = rssSources;
         this.rssSourcesAdapterHost = rssSourcesAdapterHost;
+        this.rssSources = rssSources;
     }
 
     @NonNull

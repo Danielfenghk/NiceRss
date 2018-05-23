@@ -44,10 +44,7 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     Unbinder unbinder;
 
     public static RssSourcesFragment newInstance() {
-        RssSourcesFragment fragment = new RssSourcesFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new RssSourcesFragment();
     }
 
     @Override
@@ -70,8 +67,8 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     }
 
     private void setupRssSourcesRecyclerView() {
-        int spanCount = 2;
 
+        int spanCount = 2;
         rssSourcesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
 
         List<RssSource> rssSources = dataManager.getAllRssSources();
