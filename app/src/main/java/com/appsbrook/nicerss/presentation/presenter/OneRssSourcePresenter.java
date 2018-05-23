@@ -39,8 +39,10 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
         getViewState().setAdapterData(titles);
     }
 
-    public void saveRssSource(final String name, final String url,
-                              final String categoryTitle) {
+    public void attemptSaveRssSource(final String name, final String url,
+                                     final String categoryTitle) {
+
+        // TODO check internet connection (cannot validate url without it)
 
         if (TextUtils.isEmpty(name))
             getViewState().promptFillEmptyName();
@@ -49,12 +51,11 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
             getViewState().promptFillEmptyUrl();
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(url)) {
-
-            validateRssUrl(name, url, categoryTitle);
+            validateUrlAndSave(name, url, categoryTitle);
         }
     }
 
-    private void validateRssUrl(final String name, final String url, final String categoryTitle) {
+    private void validateUrlAndSave(final String name, final String url, final String categoryTitle) {
 
         String prefix = "http://";
 
@@ -69,19 +70,18 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
 
             @Override
             public void onTaskCompleted(ArrayList<Article> list) {
-
-                saveToDb(name, url.toLowerCase(), categoryTitle);
+                storeRssSource(name, url.toLowerCase(), categoryTitle);
             }
 
             @Override
             public void onError() {
-
                 getViewState().promptEnterCorrectUrl();
             }
         });
     }
 
-    private void saveToDb(String name, String url, String categoryTitle) {
+    private void storeRssSource(String name, String url, String categoryTitle) {
+
         RssSource rssSource = new RssSource();
         rssSource.setName(name);
         rssSource.setUrl(url);

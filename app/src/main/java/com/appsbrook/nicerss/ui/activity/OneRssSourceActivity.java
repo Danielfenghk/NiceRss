@@ -103,6 +103,6 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         String rssSourceCategory = (String) rssCategorySpinner.getSelectedItem();
         Timber.d("rssSourceCategory: " + rssSourceCategory);
 
-        presenter.saveRssSource(rssSourceName, rssSourceUrl, rssSourceCategory);
+        presenter.attemptSaveRssSource(rssSourceName, rssSourceUrl, rssSourceCategory);
     }
 }
