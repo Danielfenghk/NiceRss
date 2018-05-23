@@ -8,7 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 
+import com.appsbrook.nicerss.events.RssSourceConfirmDeleteEvent;
 import com.appsbrook.nicerss.models.RssSource;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class ConfirmDeleteRssSourceDialog extends DialogFragment {
 
@@ -37,22 +40,23 @@ public class ConfirmDeleteRssSourceDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        final String rssSourceName = rssSource.getName();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Delete Rss Source")
-                .setMessage("Do you really want to delete this Rss source?")
+                .setMessage("Do you really want to delete " + rssSourceName + "?")
                 .setCancelable(true)
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-
+                        EventBus.getDefault().post(new RssSourceConfirmDeleteEvent(rssSource));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
 
