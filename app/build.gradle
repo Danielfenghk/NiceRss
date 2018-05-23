@@ -36,7 +36,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.appsbrook.nicerss"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -124,6 +124,9 @@ dependencies {
     // ObjectBox Data Browser
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
+
+    // Material EditText
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
 
 }
 

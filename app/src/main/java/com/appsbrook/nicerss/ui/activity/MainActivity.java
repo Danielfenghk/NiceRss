@@ -75,7 +75,9 @@ public class MainActivity extends MvpAppCompatActivity
     public void showAddNewSourceDialog() {
 
         // TODO implement showAddNewSourceDialog()
-        Snackbar.make(coordinatorLayout, "FAB is clicked!", Snackbar.LENGTH_SHORT).show();
+
+
+
     }
 
 

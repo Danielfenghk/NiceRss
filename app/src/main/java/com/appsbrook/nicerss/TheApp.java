@@ -17,6 +17,9 @@ import javax.inject.Inject;
 import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
+// TODO add/edit rss sources dialog
+// TODO use navigation drawer to navigate between RssItemsFragment and RssSourcesFragment
+
 @DebugLog
 public class TheApp extends Application {
 
