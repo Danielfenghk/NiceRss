@@ -23,4 +23,10 @@ public interface OneRssSourceView extends MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void onSaveRssSourceFailure();
+
+    void setRssSourceName(String name);
+
+    void setRssSourceUrl(String url);
+
+    void setRssSourceCategory(int position);
 }

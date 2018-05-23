@@ -27,7 +27,30 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
         TheApp.getAppComponent().inject(this);
     }
 
-    public void setAdapterData() {
+    public void setEditUi(long toEditId) {
+
+        List<RssCategory> categories = dataManager.getAllCategories();
+
+        List<String> titles = new ArrayList<>();
+        for (RssCategory category : categories) {
+            titles.add(category.getTitle());
+        }
+        getViewState().setAdapterData(titles);
+
+
+        RssSource rssSource = dataManager.getRssSource(toEditId);
+        String name = rssSource.getName();
+        String url = rssSource.getUrl();
+        RssCategory rssCategory = rssSource.getCategory().getTarget();
+        String rssCategoryTitle = rssCategory.getTitle();
+        int position = titles.indexOf(rssCategoryTitle);
+
+        getViewState().setRssSourceName(name);
+        getViewState().setRssSourceUrl(url);
+        getViewState().setRssSourceCategory(position);
+    }
+
+    public void setAddUi() {
 
         List<RssCategory> categories = dataManager.getAllCategories();
 
@@ -105,5 +128,9 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
         } else {
             getViewState().onSaveRssSourceFailure();
         }
+    }
+
+    public RssSource getRssSource(long toEditId) {
+        return dataManager.getRssSource(toEditId);
     }
 }

@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 public class RssSourcesFragment extends MvpAppCompatFragment
         implements RssSourcesView, RssSourcesAdapter.RssSourcesAdapterHost {
@@ -102,8 +103,9 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @Override
     public void onRssSourceClick(RssSource rssSource) {
 
-        // TODO implement passing rss source id (to prevent NotSerializable exception)
-        Intent intent = OneRssSourceActivity.getIntent(getActivity(), rssSource);
+        long id = rssSource.getId();
+        Timber.d("onRssSourceClick: id -> " + id);
+        Intent intent = OneRssSourceActivity.getIntent(getActivity(), id);
         startActivity(intent);
     }
 

@@ -22,8 +22,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
+@DebugLog
 public class OneRssSourceActivity extends MvpAppCompatActivity
         implements OneRssSourceView {
 
@@ -40,16 +42,17 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
     MaterialEditText rssSourceUrlEditText;
     @BindView(R.id.rss_category_spinner)
     Spinner rssCategorySpinner;
-    private RssSource rssSourceToEdit;
+    private long toEditId;
     private ArrayAdapter<String> adapter;
 
     public static Intent getIntent(final Context context) {
         return new Intent(context, OneRssSourceActivity.class);
     }
 
-    public static Intent getIntent(final Context context, RssSource rssSource) {
+    public static Intent getIntent(final Context context, long rssSourceId) {
+
         Intent intent = new Intent(context, OneRssSourceActivity.class);
-        intent.putExtra(EXTRA_RSS_SOURCE, rssSource);
+        intent.putExtra(EXTRA_RSS_SOURCE, rssSourceId);
         return intent;
     }
 
@@ -60,28 +63,32 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         setContentView(R.layout.activity_one_rss_source);
         ButterKnife.bind(this);
 
-        presenter.setAdapterData();
 
-        if (getIntent(this).getParcelableExtra(EXTRA_RSS_SOURCE) != null) {
-            rssSourceToEdit = getIntent(this).getParcelableExtra(EXTRA_RSS_SOURCE);
+        toEditId = getIntent().getLongExtra(EXTRA_RSS_SOURCE, 0);
+
+        Timber.d("toEditId: " + toEditId);
+
+        if (toEditId > 0) {
+            presenter.setEditUi(toEditId);
+        } else {
+            presenter.setAddUi();
         }
-
-        setupUi(rssSourceToEdit);
-
     }
 
-    private void setupUi(RssSource rssSourceToEdit) {
+    private void setupUi(long toEditId) {
+
+        RssSource rssSourceToEdit = presenter.getRssSource(toEditId);
 
         String name = rssSourceToEdit.getName();
         String url = rssSourceToEdit.getUrl();
 
         RssCategory rssCategory = rssSourceToEdit.getCategory().getTarget();
         String rssCategoryTitle = rssCategory.getTitle();
-        int position = adapter.getPosition(rssCategoryTitle);
+//        int position = adapter.getPosition(rssCategoryTitle);
 
         rssSourceNameEditText.setText(name);
         rssSourceUrlEditText.setText(url);
-        rssCategorySpinner.setSelection(position);
+//        rssCategorySpinner.setSelection(position);
     }
 
     @Override
@@ -128,6 +135,21 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
                 Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void setRssSourceName(String name) {
+        rssSourceNameEditText.setText(name);
+    }
+
+    @Override
+    public void setRssSourceUrl(String url) {
+        rssSourceUrlEditText.setText(url);
+    }
+
+    @Override
+    public void setRssSourceCategory(int position) {
+        rssCategorySpinner.setSelection(position);
+    }
+
     @OnClick(R.id.save_rss_source_button)
     public void onSaveRssSourceButtonClick() {
 
@@ -136,6 +158,7 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         String rssSourceCategory = (String) rssCategorySpinner.getSelectedItem();
         Timber.d("rssSourceCategory: " + rssSourceCategory);
 
+        // TODO implement edit existing
         presenter.attemptSaveRssSource(rssSourceName, rssSourceUrl, rssSourceCategory);
     }
 }
