@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.presentation.presenter.OneRssSourcePresenter;
@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class OneRssSourceActivity extends MvpAppCompatActivity
         implements OneRssSourceView {
@@ -61,12 +62,47 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         rssCategorySpinner.setAdapter(dataAdapter);
     }
 
+    @Override
+    public void promptFillEmptyName() {
+        rssSourceNameEditText.setError("Please, enter RSS source name!");
+    }
+
+    @Override
+    public void promptFillEmptyUrl() {
+        rssSourceUrlEditText.setError("Please, enter RSS source URL!");
+    }
+
+    @Override
+    public void promptEnterCorrectUrl() {
+        rssSourceUrlEditText.post(new Runnable() {
+            @Override
+            public void run() {
+
+                rssSourceUrlEditText.setError("Invalid Rss source Url!");
+            }
+        });
+    }
+
+    @Override
+    public void onSaveRssSourceSuccess() {
+        Toast.makeText(this, "New RSS source is saved!", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onSaveRssSourceFailure() {
+        Toast.makeText(this, "Failed to save new RSS source! Please, try again!",
+                Toast.LENGTH_SHORT).show();
+    }
+
     @OnClick(R.id.save_rss_source_button)
     public void onSaveRssSourceButtonClick() {
 
-        // TODO implement saving the rss source
-        Snackbar.make(coordinatorLayout, "Click!",
-                Snackbar.LENGTH_SHORT)
-                .show();
+        String rssSourceName = rssSourceNameEditText.getText().toString();
+        String rssSourceUrl = rssSourceUrlEditText.getText().toString();
+        String rssSourceCategory = (String) rssCategorySpinner.getSelectedItem();
+        Timber.d("rssSourceCategory: " + rssSourceCategory);
+
+        presenter.saveRssSource(rssSourceName, rssSourceUrl, rssSourceCategory);
     }
 }

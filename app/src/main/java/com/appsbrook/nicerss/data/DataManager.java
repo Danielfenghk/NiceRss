@@ -51,4 +51,8 @@ public class DataManager {
 
         return rssCategories.isEmpty() ? null : rssCategories.get(0);
     }
+
+    public List<RssCategory> getAllCategories() {
+        return rssCategoryBox.getAll();
+    }
 }

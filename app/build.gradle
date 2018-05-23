@@ -115,6 +115,9 @@ dependencies {
     // Rss Parser Library
     implementation 'com.prof.rssparser:rssparser:1.3.1'
 
+    // Rome Rss parsing library
+    implementation 'com.github.rometools.rome:rome:v1.9.0'
+
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
