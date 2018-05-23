@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 
 public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.RssSourceViewHolder> {
 
-
     private RssSourcesAdapterHost rssSourcesAdapterHost;
     private List<RssSource> rssSources;
 

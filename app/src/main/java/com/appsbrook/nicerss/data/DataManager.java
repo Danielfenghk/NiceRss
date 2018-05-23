@@ -55,4 +55,8 @@ public class DataManager {
     public List<RssCategory> getAllCategories() {
         return rssCategoryBox.getAll();
     }
+
+    public void deleteRssSource(RssSource rssSource) {
+        rssSourceBox.remove(rssSource);
+    }
 }

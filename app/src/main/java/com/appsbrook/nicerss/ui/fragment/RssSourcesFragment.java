@@ -2,6 +2,7 @@ package com.appsbrook.nicerss.ui.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,12 +34,12 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         implements RssSourcesView, RssSourcesAdapter.RssSourcesAdapterHost {
 
     @InjectPresenter
-    RssSourcesPresenter mRssSourcesPresenter;
+    RssSourcesPresenter presenter;
 
-    @BindView(R.id.rss_sources_recycler_view)
-    RecyclerView rssSourcesRecyclerView;
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.rss_sources_recycler_view)
+    RecyclerView rssSourcesRecyclerView;
 
     Unbinder unbinder;
     private RssSourcesAdapter adapter;
@@ -93,7 +94,7 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         adapter = new RssSourcesAdapter(this);
         rssSourcesRecyclerView.setAdapter(adapter);
 
-        mRssSourcesPresenter.setAdapterData();
+        presenter.setAdapterData();
     }
 
     @Override
@@ -116,6 +117,22 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         adapter.updateData(allRssSources);
     }
 
+    @Override
+    public void reportDeleteFailure() {
+        Toast.makeText(getActivity(), "Failed to delete RSS source!",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void confirmDeleteSuccess(List<RssSource> allRssSources) {
+
+        Snackbar.make(coordinatorLayout, "Rss source is removed!",
+                Snackbar.LENGTH_SHORT)
+                .show();
+
+        adapter.updateData(allRssSources);
+    }
+
     public void deleteRssSource(RssSource rssSource) {
 
         Toast.makeText(getActivity(), "Is deleted...", Toast.LENGTH_SHORT).show();
@@ -124,8 +141,6 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @Subscribe(threadMode = ThreadMode.MAIN)
     void onRssSourceConfirmDelete(RssSourceConfirmDeleteEvent event) {
 
-        RssSource rssSource = event.getRssSource();
-
-        Toast.makeText(getActivity(), "To delete " + rssSource, Toast.LENGTH_SHORT).show();
+        presenter.deleteRssSource(event.getRssSource());
     }
 }
