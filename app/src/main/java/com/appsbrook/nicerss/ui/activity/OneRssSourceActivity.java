@@ -9,8 +9,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.appsbrook.nicerss.R;
-import com.appsbrook.nicerss.models.RssCategory;
-import com.appsbrook.nicerss.models.RssSource;
 import com.appsbrook.nicerss.presentation.presenter.OneRssSourcePresenter;
 import com.appsbrook.nicerss.presentation.view.OneRssSourceView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -63,32 +61,12 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         setContentView(R.layout.activity_one_rss_source);
         ButterKnife.bind(this);
 
-
         toEditId = getIntent().getLongExtra(EXTRA_RSS_SOURCE, 0);
 
         Timber.d("toEditId: " + toEditId);
 
-        if (toEditId > 0) {
-            presenter.setEditUi(toEditId);
-        } else {
-            presenter.setAddUi();
-        }
-    }
+        presenter.setupUi(toEditId);
 
-    private void setupUi(long toEditId) {
-
-        RssSource rssSourceToEdit = presenter.getRssSource(toEditId);
-
-        String name = rssSourceToEdit.getName();
-        String url = rssSourceToEdit.getUrl();
-
-        RssCategory rssCategory = rssSourceToEdit.getCategory().getTarget();
-        String rssCategoryTitle = rssCategory.getTitle();
-//        int position = adapter.getPosition(rssCategoryTitle);
-
-        rssSourceNameEditText.setText(name);
-        rssSourceUrlEditText.setText(url);
-//        rssCategorySpinner.setSelection(position);
     }
 
     @Override
@@ -156,7 +134,6 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         String rssSourceName = rssSourceNameEditText.getText().toString();
         String rssSourceUrl = rssSourceUrlEditText.getText().toString();
         String rssSourceCategory = (String) rssCategorySpinner.getSelectedItem();
-        Timber.d("rssSourceCategory: " + rssSourceCategory);
 
         // TODO implement edit existing
         presenter.attemptSaveRssSource(rssSourceName, rssSourceUrl, rssSourceCategory);

@@ -27,7 +27,7 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
         TheApp.getAppComponent().inject(this);
     }
 
-    public void setEditUi(long toEditId) {
+    public void setupUi(long toEditId) {
 
         List<RssCategory> categories = dataManager.getAllCategories();
 
@@ -37,29 +37,19 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
         }
         getViewState().setAdapterData(titles);
 
+        if (toEditId > 0) {
 
-        RssSource rssSource = dataManager.getRssSource(toEditId);
-        String name = rssSource.getName();
-        String url = rssSource.getUrl();
-        RssCategory rssCategory = rssSource.getCategory().getTarget();
-        String rssCategoryTitle = rssCategory.getTitle();
-        int position = titles.indexOf(rssCategoryTitle);
+            RssSource rssSource = dataManager.getRssSource(toEditId);
+            String name = rssSource.getName();
+            String url = rssSource.getUrl();
+            RssCategory rssCategory = rssSource.getCategory().getTarget();
+            String rssCategoryTitle = rssCategory.getTitle();
+            int position = titles.indexOf(rssCategoryTitle);
 
-        getViewState().setRssSourceName(name);
-        getViewState().setRssSourceUrl(url);
-        getViewState().setRssSourceCategory(position);
-    }
-
-    public void setAddUi() {
-
-        List<RssCategory> categories = dataManager.getAllCategories();
-
-        List<String> titles = new ArrayList<>();
-        for (RssCategory category : categories) {
-            titles.add(category.getTitle());
+            getViewState().setRssSourceName(name);
+            getViewState().setRssSourceUrl(url);
+            getViewState().setRssSourceCategory(position);
         }
-
-        getViewState().setAdapterData(titles);
     }
 
     public void attemptSaveRssSource(final String name, final String url,
