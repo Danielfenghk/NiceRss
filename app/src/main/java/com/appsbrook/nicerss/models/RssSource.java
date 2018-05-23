@@ -8,6 +8,7 @@ import io.objectbox.annotation.Id;
 import io.objectbox.relation.ToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import timber.log.Timber;
 
 @Entity
 @Data
@@ -20,7 +21,6 @@ public class RssSource implements Parcelable {
     private String name;
     private String url;
     private ToOne<RssCategory> category;
-
 
     @Override
     public int describeContents() {
@@ -42,7 +42,7 @@ public class RssSource implements Parcelable {
         this.category = (ToOne<RssCategory>) in.readSerializable();
     }
 
-    public static final Parcelable.Creator<RssSource> CREATOR = new Parcelable.Creator<RssSource>() {
+    public static final Creator<RssSource> CREATOR = new Creator<RssSource>() {
         @Override
         public RssSource createFromParcel(Parcel source) {
             return new RssSource(source);

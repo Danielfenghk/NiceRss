@@ -1,12 +1,16 @@
 package com.appsbrook.nicerss.models;
 
+import java.io.Serializable;
+
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-public class RssCategory {
+@NoArgsConstructor
+public class RssCategory implements Serializable{
 
     @Id
     private long id;

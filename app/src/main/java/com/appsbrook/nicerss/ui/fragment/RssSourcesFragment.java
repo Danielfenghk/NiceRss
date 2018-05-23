@@ -1,5 +1,6 @@
 package com.appsbrook.nicerss.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import com.appsbrook.nicerss.events.RssSourceConfirmDeleteEvent;
 import com.appsbrook.nicerss.models.RssSource;
 import com.appsbrook.nicerss.presentation.presenter.RssSourcesPresenter;
 import com.appsbrook.nicerss.presentation.view.RssSourcesView;
+import com.appsbrook.nicerss.ui.activity.OneRssSourceActivity;
 import com.appsbrook.nicerss.ui.adapters.RssSourcesAdapter;
 import com.appsbrook.nicerss.ui.dialogs.ConfirmDeleteRssSourceDialog;
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -100,8 +102,9 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @Override
     public void onRssSourceClick(RssSource rssSource) {
 
-        // TODO open edit rss source dialog
-        Toast.makeText(getActivity(), "Click: " + rssSource, Toast.LENGTH_SHORT).show();
+        // TODO implement passing rss source id (to prevent NotSerializable exception)
+        Intent intent = OneRssSourceActivity.getIntent(getActivity(), rssSource);
+        startActivity(intent);
     }
 
     @Override
@@ -113,7 +116,6 @@ public class RssSourcesFragment extends MvpAppCompatFragment
 
     @Override
     public void setAdapterData(List<RssSource> allRssSources) {
-
         adapter.updateData(allRssSources);
     }
 
@@ -133,14 +135,8 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         adapter.updateData(allRssSources);
     }
 
-    public void deleteRssSource(RssSource rssSource) {
-
-        Toast.makeText(getActivity(), "Is deleted...", Toast.LENGTH_SHORT).show();
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    void onRssSourceConfirmDelete(RssSourceConfirmDeleteEvent event) {
-
+    public void onRssSourceConfirmDelete(RssSourceConfirmDeleteEvent event) {
         presenter.deleteRssSource(event.getRssSource());
     }
 }
