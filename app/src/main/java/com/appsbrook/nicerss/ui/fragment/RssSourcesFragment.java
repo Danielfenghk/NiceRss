@@ -14,6 +14,7 @@ import com.appsbrook.nicerss.models.RssSource;
 import com.appsbrook.nicerss.presentation.presenter.RssSourcesPresenter;
 import com.appsbrook.nicerss.presentation.view.RssSourcesView;
 import com.appsbrook.nicerss.ui.adapters.RssSourcesAdapter;
+import com.appsbrook.nicerss.ui.dialogs.ConfirmDeleteRssSourceDialog;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -86,8 +87,8 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @Override
     public void onRssSourceLongClick(RssSource rssSource) {
 
-        // TODO open delete dialog
-        Toast.makeText(getActivity(), "Long Click: " + rssSource, Toast.LENGTH_SHORT).show();
+        ConfirmDeleteRssSourceDialog dialog = ConfirmDeleteRssSourceDialog.newInstance(rssSource);
+        dialog.show(getActivity().getSupportFragmentManager(), "confirm_delete");
     }
 
     @Override
