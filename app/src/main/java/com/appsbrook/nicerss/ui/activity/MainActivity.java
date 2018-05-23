@@ -74,12 +74,9 @@ public class MainActivity extends MvpAppCompatActivity
     @Override
     public void showAddNewSourceDialog() {
 
-        // TODO implement showAddNewSourceDialog()
-
-
-
+        Intent intent = OneRssSourceActivity.getIntent(this);
+        startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

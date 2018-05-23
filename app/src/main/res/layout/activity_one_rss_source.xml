@@ -1,8 +1,67 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.activity.OneRssSourceActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".ui.activity.OneRssSourceActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_feed"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/text_size_big"/>
 
-</FrameLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_big"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/rss_source_name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/source_name"
+        app:met_baseColor="@color/colorTextPrimary"
+        app:met_errorColor="@color/colorAccent"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="@color/colorPrimary"
+        />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_small"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/rss_source_url_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/feed_url"
+        android:inputType="textWebEmailAddress"
+        app:met_baseColor="@color/colorTextPrimary"
+        app:met_errorColor="@color/colorAccent"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="@color/colorPrimary"
+        />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_small"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category"/>
+
+    <Spinner
+        android:id="@+id/rss_category_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save_rss_source_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save_rss_source"/>
+
+</LinearLayout>
