@@ -1,67 +1,87 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context=".ui.activity.OneRssSourceActivity">
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinator_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_feed"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/text_size_big"/>
-
-    <Space
+    <LinearLayout
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_big"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.activity.OneRssSourceActivity">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/rss_source_name_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/source_name"
-        app:met_baseColor="@color/colorTextPrimary"
-        app:met_errorColor="@color/colorAccent"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="@color/colorPrimary"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_feed"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/text_size_big"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_small"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_big"/>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/rss_source_url_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/feed_url"
-        android:inputType="textWebEmailAddress"
-        app:met_baseColor="@color/colorTextPrimary"
-        app:met_errorColor="@color/colorAccent"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="@color/colorPrimary"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/rss_source_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/source_name"
+            app:met_baseColor="@color/colorTextPrimary"
+            app:met_errorColor="@color/colorAccent"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorPrimary"
+            />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_small"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_small"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Category"/>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/rss_source_url_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/feed_url"
+            android:inputType="textWebEmailAddress"
+            app:met_baseColor="@color/colorTextPrimary"
+            app:met_errorColor="@color/colorAccent"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorPrimary"
+            />
 
-    <Spinner
-        android:id="@+id/rss_category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_big"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="18sp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_small"/>
+
+        <Spinner
+            android:prompt="@string/spinner_title"
+            android:id="@+id/rss_category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/save_rss_source_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_save_rss_source"/>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
+
