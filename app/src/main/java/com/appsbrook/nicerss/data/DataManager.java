@@ -1,6 +1,7 @@
 package com.appsbrook.nicerss.data;
 
 import com.appsbrook.nicerss.models.RssCategory;
+import com.appsbrook.nicerss.models.RssCategory_;
 import com.appsbrook.nicerss.models.RssSource;
 
 import java.util.List;
@@ -39,5 +40,15 @@ public class DataManager {
 
     public RssCategory getRssCategory(long id) {
         return rssCategoryBox.get(id);
+    }
+
+    public RssCategory getRssCategoryByTitle(String title) {
+
+        List<RssCategory> rssCategories = rssCategoryBox.query()
+                .equal(RssCategory_.title, title)
+                .build()
+                .find();
+
+        return rssCategories.isEmpty() ? null : rssCategories.get(0);
     }
 }

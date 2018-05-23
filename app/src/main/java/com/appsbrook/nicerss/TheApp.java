@@ -91,15 +91,15 @@ public class TheApp extends Application {
 
             storeRssSource("ArsTechnica",
                     "http://feeds.arstechnica.com/arstechnica/index?format=xml",
-                    "Tech");
+                    dataManager.getRssCategoryByTitle("Tech"));
 
             storeRssSource("Reuters",
                     "http://feeds.reuters.com/reuters/topNews?format=xml",
-                    "News");
+                    dataManager.getRssCategoryByTitle("News"));
 
             storeRssSource("IGN",
                     "http://feeds.ign.com/ign/all?format=xml",
-                    "Business");
+                    dataManager.getRssCategoryByTitle("Tech"));
         }
     }
 
@@ -116,12 +116,12 @@ public class TheApp extends Application {
     }
 
     private void storeRssSource(String name,
-                                String url, String category) {
+                                String url, RssCategory category) {
 
         RssSource rssSource = new RssSource();
         rssSource.setName(name);
         rssSource.setUrl(url);
-        rssSource.setCategory(category);
+        rssSource.getCategory().setTarget(category);
 
         long id = dataManager.putRssSource(rssSource);
         RssSource storedRssSource = dataManager.getRssSource(id);
