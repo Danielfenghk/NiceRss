@@ -29,8 +29,6 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @InjectPresenter
     RssSourcesPresenter mRssSourcesPresenter;
 
-
-
     @BindView(R.id.rss_sources_recycler_view)
     RecyclerView rssSourcesRecyclerView;
     @BindView(R.id.coordinator_layout)

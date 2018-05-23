@@ -1,10 +1,12 @@
 package com.appsbrook.nicerss.ui.adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
@@ -17,11 +19,14 @@ import butterknife.ButterKnife;
 
 public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.RssSourceViewHolder> {
 
+
     private RssSourcesAdapterHost rssSourcesAdapterHost;
     private List<RssSource> rssSources;
 
     public interface RssSourcesAdapterHost {
         void onRssSourceClick(RssSource rssSource);
+
+        Context getContext();
     }
 
     public RssSourcesAdapter(RssSourcesAdapterHost rssSourcesAdapterHost) {
@@ -69,6 +74,10 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
 
         @BindView(R.id.rss_source_name_text_view)
         TextView rssSourceNameTextView;
+        @BindView(R.id.rss_source_category_image_view)
+        ImageView rssSourceCategoryImageView;
+        @BindView(R.id.rss_source_category_text_view)
+        TextView rssSourceCategoryTextView;
 
         public RssSourceViewHolder(View itemView) {
             super(itemView);
@@ -81,7 +90,14 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
         public void bind(RssSource rssSource) {
             this.rssSource = rssSource;
 
-            rssSourceNameTextView.setText(rssSource.getName());
+            String rssSourceName = rssSource.getName();
+            int rssSourceCategoryImage = rssSource.getCategory().getTarget().getImage();
+            String rssSourceCategoryTitle = rssSource.getCategory().getTarget().getTitle();
+
+            rssSourceNameTextView.setText(rssSourceName);
+            rssSourceCategoryImageView.setImageDrawable(rssSourcesAdapterHost.getContext().getResources()
+                    .getDrawable(rssSourceCategoryImage));
+            rssSourceCategoryTextView.setText(rssSourceCategoryTitle);
         }
 
         @Override
