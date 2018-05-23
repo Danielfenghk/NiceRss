@@ -84,6 +84,13 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     }
 
     @Override
+    public void onRssSourceLongClick(RssSource rssSource) {
+
+        // TODO open delete dialog
+        Toast.makeText(getActivity(), "Long Click: " + rssSource, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void setAdapterData(List<RssSource> allRssSources) {
 
         adapter.updateData(allRssSources);

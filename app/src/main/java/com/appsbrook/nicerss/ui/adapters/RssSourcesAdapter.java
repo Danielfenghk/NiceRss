@@ -24,7 +24,10 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
     private List<RssSource> rssSources;
 
     public interface RssSourcesAdapterHost {
+
         void onRssSourceClick(RssSource rssSource);
+
+        void onRssSourceLongClick(RssSource rssSource);
 
         Context getContext();
     }
@@ -68,7 +71,8 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
         notifyDataSetChanged();
     }
 
-    class RssSourceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class RssSourceViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, View.OnLongClickListener {
 
         private RssSource rssSource;
 
@@ -85,6 +89,7 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
             ButterKnife.bind(this, itemView);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         public void bind(RssSource rssSource) {
@@ -104,6 +109,13 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
         public void onClick(View v) {
 
             rssSourcesAdapterHost.onRssSourceClick(rssSource);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+            rssSourcesAdapterHost.onRssSourceLongClick(rssSource);
+            return true;
         }
     }
 }
