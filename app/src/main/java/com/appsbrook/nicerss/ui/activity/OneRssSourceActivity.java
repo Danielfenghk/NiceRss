@@ -25,20 +25,19 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         implements OneRssSourceView {
 
     @InjectPresenter
-    OneRssSourcePresenter mOneRssSourcePresenter;
+    OneRssSourcePresenter presenter;
 
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.rss_source_name_edit_text)
     MaterialEditText rssSourceNameEditText;
     @BindView(R.id.rss_source_url_edit_text)
     MaterialEditText rssSourceUrlEditText;
     @BindView(R.id.rss_category_spinner)
     Spinner rssCategorySpinner;
-    @BindView(R.id.coordinator_layout)
-    CoordinatorLayout coordinatorLayout;
 
     public static Intent getIntent(final Context context) {
-        Intent intent = new Intent(context, OneRssSourceActivity.class);
-        return intent;
+        return new Intent(context, OneRssSourceActivity.class);
     }
 
     @Override
@@ -48,15 +47,7 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         setContentView(R.layout.activity_one_rss_source);
         ButterKnife.bind(this);
 
-        mOneRssSourcePresenter.setAdapterData();
-    }
-
-    @OnClick(R.id.save_rss_source_button)
-    public void onViewClicked() {
-
-        Snackbar.make(coordinatorLayout, "Click!",
-                Snackbar.LENGTH_SHORT)
-                .show();
+        presenter.setAdapterData();
     }
 
     @Override
@@ -68,5 +59,14 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         rssCategorySpinner.setAdapter(dataAdapter);
+    }
+
+    @OnClick(R.id.save_rss_source_button)
+    public void onSaveRssSourceButtonClick() {
+
+        // TODO implement saving the rss source
+        Snackbar.make(coordinatorLayout, "Click!",
+                Snackbar.LENGTH_SHORT)
+                .show();
     }
 }

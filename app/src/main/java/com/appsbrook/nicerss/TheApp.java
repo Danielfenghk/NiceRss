@@ -7,6 +7,7 @@ import com.appsbrook.nicerss.data.SettingsManager;
 import com.appsbrook.nicerss.di.components.AppComponent;
 import com.appsbrook.nicerss.di.components.DaggerAppComponent;
 import com.appsbrook.nicerss.di.modules.AppModule;
+import com.appsbrook.nicerss.models.RssCategory;
 import com.appsbrook.nicerss.models.RssSource;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -17,7 +18,7 @@ import javax.inject.Inject;
 import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
-// TODO add/edit rss sources dialog
+// TODO edit rss sources activity
 // TODO use navigation drawer to navigate between RssItemsFragment and RssSourcesFragment
 
 @DebugLog
@@ -44,7 +45,7 @@ public class TheApp extends Application {
         initializeLogging();
         initializeDatabaseDebugging();
 
-        initializeSourcesData();
+        initializeAppData();
     }
 
     private void initializeAppComponent() {
@@ -78,11 +79,15 @@ public class TheApp extends Application {
     }
 
 
-    private void initializeSourcesData() {
+    private void initializeAppData() {
 
         appComponent.inject(this);
 
         if (settingsManager.isFirstLaunch()) {
+
+            storeRssCategory("Tech", R.drawable.ic_tech);
+            storeRssCategory("News", R.drawable.ic_news_rss_category);
+            storeRssCategory("Business", R.drawable.ic_business_rss_category);
 
             storeRssSource("ArsTechnica",
                     "http://feeds.arstechnica.com/arstechnica/index?format=xml",
@@ -96,6 +101,18 @@ public class TheApp extends Application {
                     "http://feeds.ign.com/ign/all?format=xml",
                     "Business");
         }
+    }
+
+    private void storeRssCategory(String title, int image) {
+
+        RssCategory rssCategory = new RssCategory();
+        rssCategory.setTitle(title);
+        rssCategory.setImage(image);
+
+        long id = dataManager.putRssCategory(rssCategory);
+        RssCategory storedRssCategory = dataManager.getRssCategory(id);
+
+        Timber.d("Stored Rss Category: " + storedRssCategory);
     }
 
     private void storeRssSource(String name,

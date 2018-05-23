@@ -1,5 +1,6 @@
 package com.appsbrook.nicerss.data;
 
+import com.appsbrook.nicerss.models.RssCategory;
 import com.appsbrook.nicerss.models.RssSource;
 
 import java.util.List;
@@ -12,10 +13,12 @@ import io.objectbox.BoxStore;
 public class DataManager {
 
     private final Box<RssSource> rssSourceBox;
+    private final Box<RssCategory> rssCategoryBox;
 
     @Inject
     public DataManager(BoxStore boxStore) {
         rssSourceBox = boxStore.boxFor(RssSource.class);
+        rssCategoryBox = boxStore.boxFor(RssCategory.class);
     }
 
     public long putRssSource(RssSource rssSource) {
@@ -27,7 +30,14 @@ public class DataManager {
     }
 
     public List<RssSource> getAllRssSources() {
-
         return rssSourceBox.getAll();
+    }
+
+    public long putRssCategory(RssCategory rssCategory) {
+        return rssCategoryBox.put(rssCategory);
+    }
+
+    public RssCategory getRssCategory(long id) {
+        return rssCategoryBox.get(id);
     }
 }
