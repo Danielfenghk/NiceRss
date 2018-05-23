@@ -17,12 +17,13 @@ public class ConfirmDeleteRssSourceDialog extends DialogFragment {
 
     private static final String KEY_RSS_SOURCE = "KEY_RSS_SOURCE";
     private RssSource rssSource;
+    private long rssSourceId;
 
-    public static ConfirmDeleteRssSourceDialog newInstance(RssSource rssSource) {
+    public static ConfirmDeleteRssSourceDialog newInstance(long rssSource) {
 
         ConfirmDeleteRssSourceDialog fragment = new ConfirmDeleteRssSourceDialog();
         Bundle args = new Bundle();
-        args.putParcelable(KEY_RSS_SOURCE, rssSource);
+        args.putLong(KEY_RSS_SOURCE, rssSource);
         fragment.setArguments(args);
         return fragment;
     }
@@ -32,7 +33,7 @@ public class ConfirmDeleteRssSourceDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            rssSource = getArguments().getParcelable(KEY_RSS_SOURCE);
+            rssSourceId = getArguments().getLong(KEY_RSS_SOURCE);
         }
     }
 
@@ -40,18 +41,16 @@ public class ConfirmDeleteRssSourceDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final String rssSourceName = rssSource.getName();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Delete Rss Source")
-                .setMessage("Do you really want to delete " + rssSourceName + "?")
+                .setMessage("Do you really want to delete this RSS source?")
                 .setCancelable(true)
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        EventBus.getDefault().post(new RssSourceConfirmDeleteEvent(rssSource));
+                        EventBus.getDefault().post(new RssSourceConfirmDeleteEvent(rssSourceId));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

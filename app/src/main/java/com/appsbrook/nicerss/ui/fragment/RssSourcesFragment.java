@@ -110,7 +110,8 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @Override
     public void onRssSourceLongClick(RssSource rssSource) {
 
-        ConfirmDeleteRssSourceDialog dialog = ConfirmDeleteRssSourceDialog.newInstance(rssSource);
+        long id = rssSource.getId();
+        ConfirmDeleteRssSourceDialog dialog = ConfirmDeleteRssSourceDialog.newInstance(id);
         dialog.show(getActivity().getSupportFragmentManager(), "confirm_delete");
     }
 
@@ -137,6 +138,6 @@ public class RssSourcesFragment extends MvpAppCompatFragment
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRssSourceConfirmDelete(RssSourceConfirmDeleteEvent event) {
-        presenter.deleteRssSource(event.getRssSource());
+        presenter.deleteRssSource(event.getRssSourceId());
     }
 }

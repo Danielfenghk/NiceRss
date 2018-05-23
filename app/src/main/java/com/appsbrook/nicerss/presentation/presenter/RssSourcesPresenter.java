@@ -27,10 +27,10 @@ public class RssSourcesPresenter extends MvpPresenter<RssSourcesView> {
         getViewState().setAdapterData(allRssSources);
     }
 
-    public void deleteRssSource(RssSource rssSource) {
+    public void deleteRssSource(long rssSourceId) {
 
         try {
-            dataManager.deleteRssSource(rssSource);
+            dataManager.deleteRssSource(rssSourceId);
 
             List<RssSource> allRssSources = dataManager.getAllRssSources();
             getViewState().confirmDeleteSuccess(allRssSources);
