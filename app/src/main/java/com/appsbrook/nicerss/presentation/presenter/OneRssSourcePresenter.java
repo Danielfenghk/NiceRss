@@ -57,9 +57,7 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
 
     private void validateUrlAndSave(final String name, final String url, final String categoryTitle) {
 
-        String prefix = "http://";
-
-        if (!url.toLowerCase().startsWith(prefix) || url.toLowerCase().equals(prefix)) {
+        if (!isPrefixOk(url)) {
             getViewState().promptEnterCorrectUrl();
             return;
         }
@@ -78,6 +76,18 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
                 getViewState().promptEnterCorrectUrl();
             }
         });
+    }
+
+    private boolean isPrefixOk(String url) {
+
+        String[] prefixes = {"http://", "https://"};
+
+        for (String prefix : prefixes) {
+            if (url.toLowerCase().startsWith(prefix) && !url.toLowerCase().equals(prefix)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void storeRssSource(String name, String url, String categoryTitle) {

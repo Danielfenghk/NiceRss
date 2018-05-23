@@ -16,11 +16,11 @@ public interface OneRssSourceView extends MvpView {
 
     void promptFillEmptyUrl();
 
+    void promptEnterCorrectUrl();
+
     @StateStrategyType(OneExecutionStateStrategy.class)
     void onSaveRssSourceSuccess();
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void onSaveRssSourceFailure();
-
-    void promptEnterCorrectUrl();
 }
