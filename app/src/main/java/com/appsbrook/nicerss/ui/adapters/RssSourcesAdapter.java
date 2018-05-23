@@ -55,8 +55,12 @@ public class RssSourcesAdapter extends RecyclerView.Adapter<RssSourcesAdapter.Rs
 
     @Override
     public int getItemCount() {
-
         return rssSources != null ? rssSources.size() : 0;
+    }
+
+    public void updateData(List<RssSource> rssSources) {
+        this.rssSources = rssSources;
+        notifyDataSetChanged();
     }
 
     class RssSourceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

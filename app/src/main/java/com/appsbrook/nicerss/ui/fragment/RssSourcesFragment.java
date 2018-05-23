@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.appsbrook.nicerss.R;
-import com.appsbrook.nicerss.TheApp;
-import com.appsbrook.nicerss.data.DataManager;
 import com.appsbrook.nicerss.models.RssSource;
 import com.appsbrook.nicerss.presentation.presenter.RssSourcesPresenter;
 import com.appsbrook.nicerss.presentation.view.RssSourcesView;
@@ -20,8 +18,6 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +29,7 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     @InjectPresenter
     RssSourcesPresenter mRssSourcesPresenter;
 
-    @Inject
-    DataManager dataManager;
+
 
     @BindView(R.id.rss_sources_recycler_view)
     RecyclerView rssSourcesRecyclerView;
@@ -42,6 +37,7 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     CoordinatorLayout coordinatorLayout;
 
     Unbinder unbinder;
+    private RssSourcesAdapter adapter;
 
     public static RssSourcesFragment newInstance() {
         return new RssSourcesFragment();
@@ -54,7 +50,6 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         View view = inflater.inflate(R.layout.fragment_rss_sources, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        TheApp.getAppComponent().inject(this);
 
         return view;
     }
@@ -71,9 +66,10 @@ public class RssSourcesFragment extends MvpAppCompatFragment
         int spanCount = 2;
         rssSourcesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
 
-        List<RssSource> rssSources = dataManager.getAllRssSources();
-        RssSourcesAdapter adapter = new RssSourcesAdapter(this, rssSources);
+        adapter = new RssSourcesAdapter(this);
         rssSourcesRecyclerView.setAdapter(adapter);
+
+        mRssSourcesPresenter.setAdapterData();
     }
 
     @Override
@@ -87,5 +83,11 @@ public class RssSourcesFragment extends MvpAppCompatFragment
 
         // TODO open edit rss source dialog
         Toast.makeText(getActivity(), "Click: " + rssSource, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setAdapterData(List<RssSource> allRssSources) {
+
+        adapter.updateData(allRssSources);
     }
 }

@@ -3,6 +3,7 @@ package com.appsbrook.nicerss.di.components;
 import com.appsbrook.nicerss.TheApp;
 import com.appsbrook.nicerss.di.modules.AppModule;
 import com.appsbrook.nicerss.interactors.RssItemsLoaderInteractor;
+import com.appsbrook.nicerss.presentation.presenter.RssSourcesPresenter;
 import com.appsbrook.nicerss.ui.activity.IntroductionActivity;
 import com.appsbrook.nicerss.ui.adapters.RssItemsAdapter;
 import com.appsbrook.nicerss.ui.fragment.RssSourcesFragment;
@@ -25,4 +26,5 @@ public interface AppComponent {
 
     void inject(RssSourcesFragment rssSourcesFragment);
 
+    void inject(RssSourcesPresenter rssSourcesPresenter);
 }
