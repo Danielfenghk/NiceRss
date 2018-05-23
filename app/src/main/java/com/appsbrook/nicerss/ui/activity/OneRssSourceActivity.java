@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.presentation.presenter.OneRssSourcePresenter;
@@ -18,14 +15,14 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class OneRssSourceActivity extends MvpAppCompatActivity implements OneRssSourceView, AdapterView.OnItemSelectedListener {
+public class OneRssSourceActivity extends MvpAppCompatActivity
+        implements OneRssSourceView {
 
     @InjectPresenter
     OneRssSourcePresenter mOneRssSourcePresenter;
@@ -51,28 +48,7 @@ public class OneRssSourceActivity extends MvpAppCompatActivity implements OneRss
         setContentView(R.layout.activity_one_rss_source);
         ButterKnife.bind(this);
 
-
-        // Spinner click listener
-        rssCategorySpinner.setOnItemSelectedListener(this);
-
-        // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Automobile");
-        categories.add("Business Services");
-        categories.add("Computers");
-        categories.add("Education");
-        categories.add("Personal");
-        categories.add("Travel");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter
-                = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        rssCategorySpinner.setAdapter(dataAdapter);
+        mOneRssSourcePresenter.setAdapterData();
     }
 
     @OnClick(R.id.save_rss_source_button)
@@ -84,16 +60,13 @@ public class OneRssSourceActivity extends MvpAppCompatActivity implements OneRss
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
+    public void setAdapterData(List<String> categories) {
 
-        // Showing selected spinner item
-        Toast.makeText(this, "Selected: " + item, Toast.LENGTH_SHORT).show();
-    }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categories);
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        rssCategorySpinner.setAdapter(dataAdapter);
     }
 }
