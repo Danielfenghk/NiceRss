@@ -59,4 +59,8 @@ public class DataManager {
     public void deleteRssSource(long rssSource) {
         rssSourceBox.remove(rssSource);
     }
+
+    public long updateRssSource(RssSource rssSource) {
+        return rssSourceBox.put(rssSource);
+    }
 }

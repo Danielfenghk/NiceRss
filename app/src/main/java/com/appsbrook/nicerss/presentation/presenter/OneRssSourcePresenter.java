@@ -23,6 +23,8 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
     @Inject
     DataManager dataManager;
 
+    private long toEditId;
+
     public OneRssSourcePresenter() {
         TheApp.getAppComponent().inject(this);
     }
@@ -36,6 +38,8 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
             titles.add(category.getTitle());
         }
         getViewState().setAdapterData(titles);
+
+        this.toEditId = toEditId;
 
         if (toEditId > 0) {
 
@@ -81,6 +85,7 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
 
             @Override
             public void onTaskCompleted(ArrayList<Article> list) {
+
                 storeRssSource(name, url.toLowerCase(), categoryTitle);
             }
 
@@ -104,6 +109,32 @@ public class OneRssSourcePresenter extends MvpPresenter<OneRssSourceView> {
     }
 
     private void storeRssSource(String name, String url, String categoryTitle) {
+
+        if (toEditId > 0) {
+            editRssSource(name, url, categoryTitle);
+        } else {
+            addRssSource(name, url, categoryTitle);
+        }
+    }
+
+    private void editRssSource(String name, String url, String categoryTitle) {
+
+        RssSource rssSource = dataManager.getRssSource(toEditId);
+
+        rssSource.setName(name);
+        rssSource.setUrl(url);
+        RssCategory category = dataManager.getRssCategoryByTitle(categoryTitle);
+        rssSource.getCategory().setTarget(category);
+
+        long id = dataManager.updateRssSource(rssSource);
+        if (id > 0) {
+            getViewState().onEditRssSourceSuccess();
+        } else {
+            getViewState().onEditRssSourceFailure();
+        }
+    }
+
+    private void addRssSource(String name, String url, String categoryTitle) {
 
         RssSource rssSource = new RssSource();
         rssSource.setName(name);

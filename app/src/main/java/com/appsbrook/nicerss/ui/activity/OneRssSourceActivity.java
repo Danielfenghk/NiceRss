@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -109,8 +110,9 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
 
     @Override
     public void onSaveRssSourceFailure() {
-        Toast.makeText(this, "Failed to save new RSS source! Please, try again!",
-                Toast.LENGTH_SHORT).show();
+        Snackbar.make(coordinatorLayout, "Failed to save new RSS source! Please, try again!",
+                Snackbar.LENGTH_SHORT)
+                .show();
     }
 
     @Override
@@ -126,6 +128,19 @@ public class OneRssSourceActivity extends MvpAppCompatActivity
     @Override
     public void setRssSourceCategory(int position) {
         rssCategorySpinner.setSelection(position);
+    }
+
+    @Override
+    public void onEditRssSourceSuccess() {
+        Toast.makeText(this, "Rss sources is successfully updated!", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onEditRssSourceFailure() {
+        Snackbar.make(coordinatorLayout, "Failed to update new RSS source! Please, try again!",
+                Snackbar.LENGTH_SHORT)
+                .show();
     }
 
     @OnClick(R.id.save_rss_source_button)
