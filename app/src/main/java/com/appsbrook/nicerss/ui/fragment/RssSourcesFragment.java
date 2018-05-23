@@ -68,7 +68,7 @@ public class RssSourcesFragment extends MvpAppCompatFragment
     public void onResume() {
         super.onResume();
 
-        setupRssSourcesRecyclerView();
+        presenter.setAdapterData();
     }
 
     @Override
@@ -86,17 +86,6 @@ public class RssSourcesFragment extends MvpAppCompatFragment
 
     public static RssSourcesFragment newInstance() {
         return new RssSourcesFragment();
-    }
-
-    private void setupRssSourcesRecyclerView() {
-
-        int spanCount = 2;
-        rssSourcesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
-
-        adapter = new RssSourcesAdapter(this);
-        rssSourcesRecyclerView.setAdapter(adapter);
-
-        presenter.setAdapterData();
     }
 
     @Override
@@ -118,7 +107,12 @@ public class RssSourcesFragment extends MvpAppCompatFragment
 
     @Override
     public void setAdapterData(List<RssSource> allRssSources) {
-        adapter.updateData(allRssSources);
+
+        int spanCount = 2;
+        rssSourcesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
+
+        adapter = new RssSourcesAdapter(this, allRssSources);
+        rssSourcesRecyclerView.setAdapter(adapter);
     }
 
     @Override
