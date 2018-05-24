@@ -2,11 +2,11 @@ package com.appsbrook.nicerss.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +51,10 @@ public class MainActivity extends MvpAppCompatActivity
 
         setupToolbar();
         setupFragment();
+        setupNavigation();
+    }
+
+    private void setupNavigation() {
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawerLayout, toolbar,
@@ -61,7 +65,6 @@ public class MainActivity extends MvpAppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-
     }
 
     @Override
@@ -69,23 +72,54 @@ public class MainActivity extends MvpAppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.rss_feeds_item:
-                Toast.makeText(this, "Feeds!", Toast.LENGTH_SHORT).show();
-                return true;
+                openRssItems();
+                break;
             case R.id.favorites_item:
-                Toast.makeText(this, "Favorites", Toast.LENGTH_SHORT).show();
-                return true;
+                openFavorites();
+                break;
             case R.id.rss_sources_item:
-                Toast.makeText(this, "Rss sources", Toast.LENGTH_SHORT).show();
-                return true;
+                openRssSources();
+                break;
             case R.id.navigation_settings_item:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-                return true;
+                openSettings();
+                break;
             case R.id.navigation_about_item:
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
-                return true;
+                openAbout();
+                break;
         }
 
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openRssItems() {
+        Toast.makeText(this, "Feeds!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void openFavorites() {
+        Toast.makeText(this, "Favorites", Toast.LENGTH_SHORT).show();
+    }
+
+    private void openRssSources() {
+        presenter.onRssSourcesClick();
+    }
+
+    private void openSettings() {
+        presenter.onSettingsClick();
+    }
+
+    private void openAbout() {
+        Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public static Intent newIntent(Context context) {
