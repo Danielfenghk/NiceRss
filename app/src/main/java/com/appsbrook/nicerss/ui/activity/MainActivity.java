@@ -100,15 +100,22 @@ public class MainActivity extends MvpAppCompatActivity
 
     @Override
     public void openRssItemsFragment() {
+        preventReopening(RssItemsFragment.class, RssItemsFragment.newInstance());
+    }
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    @Override
+    public void openRssSourcesFragment() {
+        preventReopening(RssSourcesFragment.class, RssSourcesFragment.newInstance());
+    }
 
-        if (fragment instanceof RssItemsFragment) {
-            return;
-        }
+    private void preventReopening(Class<?> cls, Fragment fragment) {
+
+        Fragment openedFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+        if (cls.isInstance(openedFragment)) return;
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, RssItemsFragment.newInstance())
+                .replace(R.id.fragment_container, fragment)
                 .commit();
     }
 
@@ -117,14 +124,6 @@ public class MainActivity extends MvpAppCompatActivity
 
         // TODO
         Toast.makeText(this, "Favorites!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void openRssSourcesFragment() {
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, RssSourcesFragment.newInstance())
-                .commit();
     }
 
     @Override
