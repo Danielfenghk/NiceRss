@@ -16,7 +16,6 @@ import org.greenrobot.eventbus.EventBus;
 public class ConfirmDeleteRssSourceDialog extends DialogFragment {
 
     private static final String KEY_RSS_SOURCE = "KEY_RSS_SOURCE";
-    private RssSource rssSource;
     private long rssSourceId;
 
     public static ConfirmDeleteRssSourceDialog newInstance(long rssSource) {

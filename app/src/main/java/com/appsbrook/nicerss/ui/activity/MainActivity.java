@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,11 +33,6 @@ public class MainActivity extends MvpAppCompatActivity
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    public static Intent newIntent(Context context) {
-
-        return new Intent(context, MainActivity.class);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +42,10 @@ public class MainActivity extends MvpAppCompatActivity
 
         setupToolbar();
         setupFragment();
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MainActivity.class);
     }
 
     private void setupToolbar() {

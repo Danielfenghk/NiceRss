@@ -28,6 +28,8 @@ public class DemoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         final String url2 = "http://feeds.arstechnica.com/arstechnica/index?format=xml";
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -36,7 +38,6 @@ public class DemoActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 parseRss(url2);
-
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
