@@ -83,4 +83,12 @@ public class DataManager {
 
         return items.size() > 0;
     }
+
+    public RssItem getRssItemByLink(String link) {
+
+        List<RssItem> items = favoritesBox.query().equal(RssItem_.link, link)
+                .build().find();
+
+        return items.get(0);
+    }
 }

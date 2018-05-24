@@ -131,11 +131,20 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
 
     private void removeFromFavorites() {
 
+        String link = item.getLink();
+        RssItem item = dataManager.getRssItemByLink(link);
+
+        if (item == null) {
+            Timber.d("item == null");
+            getViewState().onRemoveFromFavoritesFailure();
+        }
+
         try {
             dataManager.removeFromFavorites(item);
             getViewState().onRemoveFromFavoritesSuccess();
             getViewState().showRssItemNotInFavorites();
         } catch (Exception e) {
+            Timber.e(e, "Removal Failure");
             getViewState().onRemoveFromFavoritesFailure();
         }
     }
