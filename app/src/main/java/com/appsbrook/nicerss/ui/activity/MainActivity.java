@@ -2,8 +2,13 @@ package com.appsbrook.nicerss.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,15 +28,19 @@ import hugo.weaving.DebugLog;
 
 @DebugLog
 public class MainActivity extends MvpAppCompatActivity
-        implements MainMvpView {
+        implements MainMvpView, NavigationView.OnNavigationItemSelectedListener {
 
     @InjectPresenter
     MainMvpPresenter presenter;
 
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,41 @@ public class MainActivity extends MvpAppCompatActivity
 
         setupToolbar();
         setupFragment();
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.rss_feeds_item:
+                Toast.makeText(this, "Feeds!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.favorites_item:
+                Toast.makeText(this, "Favorites", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.rss_sources_item:
+                Toast.makeText(this, "Rss sources", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.navigation_settings_item:
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.navigation_about_item:
+                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+
+        return true;
     }
 
     public static Intent newIntent(Context context) {
