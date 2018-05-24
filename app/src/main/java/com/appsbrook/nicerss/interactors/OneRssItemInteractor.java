@@ -1,5 +1,8 @@
 package com.appsbrook.nicerss.interactors;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
+
 import com.appsbrook.nicerss.TheApp;
 import com.appsbrook.nicerss.data.DataManager;
 import com.appsbrook.nicerss.models.RssItem;
@@ -7,8 +10,10 @@ import com.appsbrook.nicerss.presentation.presenter.IOneRssItemPresenter;
 
 import javax.inject.Inject;
 
+import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
+@DebugLog
 public class OneRssItemInteractor implements IOneRssItemInteractor {
 
     private IOneRssItemPresenter presenter;
@@ -28,14 +33,39 @@ public class OneRssItemInteractor implements IOneRssItemInteractor {
 
     public void addToFavorites(RssItem item) {
 
-        long id = dataManager.saveToFavorites(item);
+        AddToFavoritesTask addToFavoritesTask = new AddToFavoritesTask(dataManager, presenter);
+        addToFavoritesTask.execute(item);
+    }
 
-        if (id > 0) {
-            presenter.onAddToFavoritesSuccess();
-        } else {
-            presenter.onAddToFavoritesFail();
+    private static class AddToFavoritesTask extends AsyncTask<RssItem, Void, Long> {
+
+        private DataManager dataManager;
+        private IOneRssItemPresenter presenter;
+
+        AddToFavoritesTask(DataManager dataManager, IOneRssItemPresenter presenter) {
+            this.dataManager = dataManager;
+            this.presenter = presenter;
         }
 
+        @Override
+        protected Long doInBackground(RssItem... rssItems) {
+
+            RssItem item = rssItems[0];
+            long id = dataManager.saveToFavorites(item);
+            Timber.d("long id = dataManager.saveToFavorites(item);");
+            return id;
+        }
+
+        @Override
+        protected void onPostExecute(Long id) {
+
+            if (id > 0) {
+                Timber.d("presenter.onAddToFavoritesSuccess();");
+                presenter.onAddToFavoritesSuccess();
+            } else {
+                presenter.onAddToFavoritesFail();
+            }
+        }
     }
 
     public void removeFromFavorites(RssItem theItem) {

@@ -23,11 +23,10 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView>
     private OneRssItemInteractor interactor;
 
     public OneRssItemPresenter(RssItem item) {
-        Timber.d("OneRssItemPresenter constructor call: " + item);
+        this.item = item;
 
         interactor = new OneRssItemInteractor(this);
 
-        this.item = item;
         displayRssItem();
     }
 
