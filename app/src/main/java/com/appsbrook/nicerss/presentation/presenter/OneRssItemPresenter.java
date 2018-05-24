@@ -1,6 +1,8 @@
 package com.appsbrook.nicerss.presentation.presenter;
 
 
+import com.appsbrook.nicerss.TheApp;
+import com.appsbrook.nicerss.data.DataManager;
 import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.presentation.view.OneRssItemView;
 import com.arellomobile.mvp.InjectViewState;
@@ -11,6 +13,8 @@ import org.jsoup.safety.Whitelist;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
 @InjectViewState
@@ -18,8 +22,13 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
 
     private RssItem item;
 
+    @Inject
+    DataManager dataManager;
+
     public OneRssItemPresenter(RssItem item) {
         Timber.d("OneRssItemPresenter constructor call: " + item);
+
+        TheApp.getAppComponent().inject(this);
 
         this.item = item;
         displayRssItem();
@@ -83,5 +92,30 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
         whitelist.addTags("span");
 
         return Jsoup.clean(html, whitelist);
+    }
+
+    public void onAddToFavoritesButtonClick() {
+
+        String link = item.getLink();
+
+        if (!dataManager.isRssItemSavedToFavorites(link)) {
+            addToFavorites();
+        } else {
+            removeFromFavorites();
+        }
+    }
+
+    private void removeFromFavorites() {
+        dataManager.removeFromFavorites(item);
+        getViewState().onRemoveFromFavoritesSuccess();
+    }
+
+    private void addToFavorites() {
+        long id = dataManager.saveToFavorites(item);
+        if (id > 0) {
+            getViewState().onAddToFavoritesSuccess();
+        } else {
+            getViewState().onAddToFavoritesFailure();
+        }
     }
 }

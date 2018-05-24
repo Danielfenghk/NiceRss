@@ -2,6 +2,8 @@ package com.appsbrook.nicerss.data;
 
 import com.appsbrook.nicerss.models.RssCategory;
 import com.appsbrook.nicerss.models.RssCategory_;
+import com.appsbrook.nicerss.models.RssItem;
+import com.appsbrook.nicerss.models.RssItem_;
 import com.appsbrook.nicerss.models.RssSource;
 
 import java.util.List;
@@ -15,11 +17,13 @@ public class DataManager {
 
     private final Box<RssSource> rssSourceBox;
     private final Box<RssCategory> rssCategoryBox;
+    private final Box<RssItem> favoritesBox;
 
     @Inject
     public DataManager(BoxStore boxStore) {
         rssSourceBox = boxStore.boxFor(RssSource.class);
         rssCategoryBox = boxStore.boxFor(RssCategory.class);
+        favoritesBox = boxStore.boxFor(RssItem.class);
     }
 
     public long putRssSource(RssSource rssSource) {
@@ -62,5 +66,21 @@ public class DataManager {
 
     public long updateRssSource(RssSource rssSource) {
         return rssSourceBox.put(rssSource);
+    }
+
+    public long saveToFavorites(RssItem item) {
+        return favoritesBox.put(item);
+    }
+
+    public void removeFromFavorites(RssItem item) {
+        favoritesBox.remove(item);
+    }
+
+    public boolean isRssItemSavedToFavorites(String link) {
+
+        List<RssItem> items = favoritesBox.query().equal(RssItem_.link, link)
+                .build().find();
+
+        return items.size() > 0;
     }
 }

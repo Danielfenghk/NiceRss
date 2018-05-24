@@ -113,7 +113,8 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
 
             this.item = item;
 
-            int categoryImage = item.getRssSource().getCategory().getTarget().getImage();
+            int categoryImage = item.getRssSource().getTarget()
+                    .getCategory().getTarget().getImage();
             rssItemCategoryImageView.setImageResource(categoryImage);
 
             titleTextView.setText(item.getTitle());
