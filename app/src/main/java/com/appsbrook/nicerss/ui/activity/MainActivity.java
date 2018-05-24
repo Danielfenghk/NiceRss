@@ -101,6 +101,12 @@ public class MainActivity extends MvpAppCompatActivity
     @Override
     public void openRssItemsFragment() {
 
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+        if (fragment instanceof RssItemsFragment) {
+            return;
+        }
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, RssItemsFragment.newInstance())
                 .commit();
@@ -195,8 +201,6 @@ public class MainActivity extends MvpAppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
 }
