@@ -1,7 +1,7 @@
 package com.appsbrook.nicerss.interactors;
 
 import com.appsbrook.nicerss.TheApp;
-import com.appsbrook.nicerss.data.RssItem;
+import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.data.RssLoader;
 import com.appsbrook.nicerss.presentation.presenter.IRssItemsPresenter;
 import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;

@@ -1,7 +1,7 @@
 package com.appsbrook.nicerss.presentation.presenter;
 
 
-import com.appsbrook.nicerss.data.RssItem;
+import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.interactors.RssItemsLoaderInteractor;
 import com.appsbrook.nicerss.presentation.view.RssItemsView;
 import com.arellomobile.mvp.InjectViewState;

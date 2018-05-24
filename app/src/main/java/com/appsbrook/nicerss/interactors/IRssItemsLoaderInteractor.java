@@ -1,6 +1,6 @@
 package com.appsbrook.nicerss.interactors;
 
-import com.appsbrook.nicerss.data.RssItem;
+import com.appsbrook.nicerss.models.RssItem;
 
 import java.util.List;
 

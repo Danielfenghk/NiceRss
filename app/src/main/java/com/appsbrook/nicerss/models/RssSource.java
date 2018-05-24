@@ -1,19 +1,17 @@
 package com.appsbrook.nicerss.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.relation.ToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import timber.log.Timber;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class RssSource implements Parcelable {
+public class RssSource implements Serializable {
 
     @Id
     private long id;
@@ -21,36 +19,4 @@ public class RssSource implements Parcelable {
     private String name;
     private String url;
     private ToOne<RssCategory> category;
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.url);
-        dest.writeSerializable(this.category);
-    }
-
-    protected RssSource(Parcel in) {
-        this.id = in.readLong();
-        this.name = in.readString();
-        this.url = in.readString();
-        this.category = (ToOne<RssCategory>) in.readSerializable();
-    }
-
-    public static final Creator<RssSource> CREATOR = new Creator<RssSource>() {
-        @Override
-        public RssSource createFromParcel(Parcel source) {
-            return new RssSource(source);
-        }
-
-        @Override
-        public RssSource[] newArray(int size) {
-            return new RssSource[size];
-        }
-    };
 }

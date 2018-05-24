@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
-import com.appsbrook.nicerss.data.RssItem;
+import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.presentation.presenter.RssItemsPresenter;
 import com.appsbrook.nicerss.presentation.view.RssItemsView;
 import com.appsbrook.nicerss.ui.activity.OneRssItemActivity;

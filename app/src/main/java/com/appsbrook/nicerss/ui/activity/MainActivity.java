@@ -61,6 +61,21 @@ public class MainActivity extends MvpAppCompatActivity
         setupNavigation();
     }
 
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupFragment() {
+
+        // TODO use cicerone to add/replace fragments
+        if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, RssItemsFragment.newInstance())
+                    .commit();
+        }
+    }
+
     private void setupNavigation() {
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -149,21 +164,6 @@ public class MainActivity extends MvpAppCompatActivity
         }
     }
 
-    private void setupToolbar() {
-        setSupportActionBar(toolbar);
-    }
-
-    private void setupFragment() {
-
-        // TODO use cicerone to add/replace fragments
-        if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, RssItemsFragment.newInstance())
-                    .commit();
-        }
-    }
-
     @OnClick(R.id.add_new_source_button)
     void onAddNewSourceButtonClick() {
         presenter.processAddNewSourceClick();
@@ -184,6 +184,7 @@ public class MainActivity extends MvpAppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        // TODO replace by actual menu items
         switch (item.getItemId()) {
 
             case R.id.action_settings:

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class RssCategory implements Serializable{
+public class RssCategory implements Serializable {
 
     @Id
     private long id;

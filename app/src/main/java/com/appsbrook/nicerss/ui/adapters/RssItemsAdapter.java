@@ -1,16 +1,18 @@
 package com.appsbrook.nicerss.ui.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.TheApp;
-import com.appsbrook.nicerss.data.RssItem;
+import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.utils.Utils;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssItemViewHolder> {
 
@@ -90,6 +93,9 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
 
         private RssItem item;
 
+        @BindView(R.id.rss_item_category_image_view)
+        ImageView rssItemCategoryImageView;
+
         @BindView(R.id.title_text_view)
         TextView titleTextView;
 
@@ -106,6 +112,9 @@ public class RssItemsAdapter extends RecyclerView.Adapter<RssItemsAdapter.RssIte
         void bind(RssItem item) {
 
             this.item = item;
+
+            int categoryImage = item.getRssSource().getCategory().getTarget().getImage();
+            rssItemCategoryImageView.setImageResource(categoryImage);
 
             titleTextView.setText(item.getTitle());
 

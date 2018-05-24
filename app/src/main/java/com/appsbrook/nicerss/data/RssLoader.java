@@ -1,6 +1,7 @@
 package com.appsbrook.nicerss.data;
 
 import com.appsbrook.nicerss.interactors.IRssItemsLoaderInteractor;
+import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.models.RssSource;
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
@@ -32,7 +33,7 @@ public class RssLoader {
         }
     }
 
-    private void loadFromOneSource(RssSource rssSource, final IRssItemsLoaderInteractor interactor) {
+    private void loadFromOneSource(final RssSource rssSource, final IRssItemsLoaderInteractor interactor) {
 
         Parser parser = new Parser();
         String url = rssSource.getUrl();
@@ -66,7 +67,7 @@ public class RssLoader {
                             + "Content: " + content + "\n");
 
                     RssItem item = new RssItem(title, description,
-                            author, pubDate, link, image, content);
+                            author, pubDate, link, image, content, rssSource);
 
                     items.add(item);
                 }
