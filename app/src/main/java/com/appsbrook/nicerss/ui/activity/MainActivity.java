@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.presentation.presenter.MainMvpPresenter;
 import com.appsbrook.nicerss.presentation.view.MainMvpView;
+import com.appsbrook.nicerss.ui.fragment.FavoritesFragment;
 import com.appsbrook.nicerss.ui.fragment.RssItemsFragment;
 import com.appsbrook.nicerss.ui.fragment.RssSourcesFragment;
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -108,6 +109,11 @@ public class MainActivity extends MvpAppCompatActivity
         preventReopening(RssSourcesFragment.class, RssSourcesFragment.newInstance());
     }
 
+    @Override
+    public void openFavoritesFragment() {
+        preventReopening(FavoritesFragment.class, FavoritesFragment.newInstance());
+    }
+
     private void preventReopening(Class<?> cls, Fragment fragment) {
 
         Fragment openedFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -117,13 +123,6 @@ public class MainActivity extends MvpAppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
-    }
-
-    @Override
-    public void openFavoritesFragment() {
-
-        // TODO
-        Toast.makeText(this, "Favorites!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
