@@ -43,6 +43,19 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
         displayAuthor();
         displayImage();
         displayLink();
+
+        displayIsAddedToFavorites();
+    }
+
+    private void displayIsAddedToFavorites() {
+
+        String link = item.getLink();
+
+        if (dataManager.isRssItemSavedToFavorites(link)) {
+            getViewState().showRssItemInFavorites();
+        } else {
+            getViewState().showRssItemNotInFavorites();
+        }
     }
 
     private void displayLink() {
@@ -98,24 +111,32 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
 
         String link = item.getLink();
 
-        if (!dataManager.isRssItemSavedToFavorites(link)) {
-            addToFavorites();
-        } else {
+        if (dataManager.isRssItemSavedToFavorites(link)) {
             removeFromFavorites();
+        } else {
+            addToFavorites();
+        }
+    }
+
+    private void addToFavorites() {
+
+        long id = dataManager.saveToFavorites(item);
+        if (id > 0) {
+            getViewState().onAddToFavoritesSuccess();
+            getViewState().showRssItemInFavorites();
+        } else {
+            getViewState().onAddToFavoritesFailure();
         }
     }
 
     private void removeFromFavorites() {
-        dataManager.removeFromFavorites(item);
-        getViewState().onRemoveFromFavoritesSuccess();
-    }
 
-    private void addToFavorites() {
-        long id = dataManager.saveToFavorites(item);
-        if (id > 0) {
-            getViewState().onAddToFavoritesSuccess();
-        } else {
-            getViewState().onAddToFavoritesFailure();
+        try {
+            dataManager.removeFromFavorites(item);
+            getViewState().onRemoveFromFavoritesSuccess();
+            getViewState().showRssItemNotInFavorites();
+        } catch (Exception e) {
+            getViewState().onRemoveFromFavoritesFailure();
         }
     }
 }
