@@ -1,6 +1,5 @@
 package com.appsbrook.nicerss.interactors;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import com.appsbrook.nicerss.TheApp;
@@ -33,8 +32,14 @@ public class OneRssItemInteractor implements IOneRssItemInteractor {
 
     public void addToFavorites(RssItem item) {
 
-        AddToFavoritesTask addToFavoritesTask = new AddToFavoritesTask(dataManager, presenter);
-        addToFavoritesTask.execute(item);
+        AddToFavoritesTask task = new AddToFavoritesTask(dataManager, presenter);
+        task.execute(item);
+    }
+
+    public void removeFromFavorites(RssItem item) {
+
+        RemoveFromFavoritesTask task = new RemoveFromFavoritesTask(dataManager, presenter);
+        task.execute(item);
     }
 
     private static class AddToFavoritesTask extends AsyncTask<RssItem, Void, Long> {
@@ -68,20 +73,45 @@ public class OneRssItemInteractor implements IOneRssItemInteractor {
         }
     }
 
-    public void removeFromFavorites(RssItem theItem) {
+    private static class RemoveFromFavoritesTask extends AsyncTask<RssItem, Void, Boolean> {
 
-        String link = theItem.getLink();
-        RssItem item = dataManager.getRssItemByLink(link);
+        private DataManager dataManager;
+        private IOneRssItemPresenter presenter;
 
-        if (item == null) {
-            presenter.onRemoveFromFavoritesFail();
+        public RemoveFromFavoritesTask(DataManager dataManager, IOneRssItemPresenter presenter) {
+            this.dataManager = dataManager;
+            this.presenter = presenter;
         }
 
-        try {
-            dataManager.removeFromFavorites(item);
-            presenter.onRemoveFromFavoritesSuccess();
-        } catch (Exception e) {
-            presenter.onRemoveFromFavoritesFail();
+        @Override
+        protected Boolean doInBackground(RssItem... rssItems) {
+
+            RssItem item = rssItems[0];
+            String link = item.getLink();
+            RssItem itemToRemove = dataManager.getRssItemByLink(link);
+
+            if (itemToRemove == null) {
+                return false;
+            }
+
+            try {
+                dataManager.removeFromFavorites(itemToRemove);
+            } catch (Exception e) {
+                Timber.e(e);
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean isRemoveSuccess) {
+
+            if (isRemoveSuccess) {
+                presenter.onRemoveFromFavoritesSuccess();
+            } else {
+                presenter.onRemoveFromFavoritesFail();
+            }
         }
     }
 }
