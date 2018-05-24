@@ -1,5 +1,6 @@
 package com.appsbrook.nicerss.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.presentation.presenter.FavoritesPresenter;
 import com.appsbrook.nicerss.presentation.view.FavoritesView;
+import com.appsbrook.nicerss.ui.activity.OneRssItemActivity;
 import com.appsbrook.nicerss.ui.adapters.RssItemsAdapter;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -104,8 +106,7 @@ public class FavoritesFragment extends MvpAppCompatFragment
     @Override
     public void onRssItemClick(RssItem item) {
 
-        Snackbar.make(frameLayout, "Click: " + item.getTitle(),
-                Snackbar.LENGTH_SHORT)
-                .show();
+        Intent intent = OneRssItemActivity.getIntent(getActivity(), item);
+        startActivity(intent);
     }
 }
