@@ -2,6 +2,7 @@ package com.appsbrook.nicerss.di.components;
 
 import com.appsbrook.nicerss.TheApp;
 import com.appsbrook.nicerss.di.modules.AppModule;
+import com.appsbrook.nicerss.interactors.FavoritesInteractor;
 import com.appsbrook.nicerss.interactors.OneRssItemInteractor;
 import com.appsbrook.nicerss.interactors.RssItemsLoaderInteractor;
 import com.appsbrook.nicerss.presentation.presenter.OneRssSourcePresenter;
@@ -33,4 +34,6 @@ public interface AppComponent {
     void inject(OneRssSourcePresenter oneRssSourcePresenter);
 
     void inject(OneRssItemInteractor oneRssItemInteractor);
+
+    void inject(FavoritesInteractor favoritesInteractor);
 }

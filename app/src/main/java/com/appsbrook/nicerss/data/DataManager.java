@@ -91,4 +91,8 @@ public class DataManager {
 
         return items.get(0);
     }
+
+    public List<RssItem> getFavorites() {
+        return favoritesBox.getAll();
+    }
 }

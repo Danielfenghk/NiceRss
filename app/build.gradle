@@ -131,7 +131,6 @@ dependencies {
     // GreenRobot EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-
 }
 
 // ObjectBox Data Browser

@@ -72,7 +72,7 @@ public class RssItemsFragment extends MvpAppCompatFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_news_items, container, false);
+        View view = inflater.inflate(R.layout.fragment_rss_items, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         return view;
