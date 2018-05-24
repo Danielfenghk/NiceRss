@@ -9,11 +9,20 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 public interface MainMvpView extends MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void showSettings();
+    void openSettingsActivity();
 
     @StateStrategyType(AddToEndSingleStrategy.class)
-    void showAddNewSourceDialog();
+    void openAddNewSourceDialog();
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void openRssSourcesActivity();
+    void openRssSourcesFragment();
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void openRssItemsFragment();
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void openFavoritesFragment();
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void openAboutActivity();
 }

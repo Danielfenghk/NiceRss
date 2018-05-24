@@ -13,18 +13,27 @@ public class MainMvpPresenter extends MvpPresenter<MainMvpView> {
     public MainMvpPresenter() {
     }
 
-    public void onSettingsClick() {
-
-        getViewState().showSettings();
+    public void openSettings() {
+        getViewState().openSettingsActivity();
     }
 
     public void processAddNewSourceClick() {
-
-        getViewState().showAddNewSourceDialog();
+        getViewState().openAddNewSourceDialog();
     }
 
-    public void onRssSourcesClick() {
+    public void openRssSources() {
+        getViewState().openRssSourcesFragment();
+    }
 
-        getViewState().openRssSourcesActivity();
+    public void openRssItems() {
+        getViewState().openRssItemsFragment();
+    }
+
+    public void openFavorites() {
+        getViewState().openFavoritesFragment();
+    }
+
+    public void openAbout() {
+        getViewState().openAboutActivity();
     }
 }

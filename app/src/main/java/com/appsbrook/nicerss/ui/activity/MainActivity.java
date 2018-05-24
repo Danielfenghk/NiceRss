@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +19,7 @@ import com.appsbrook.nicerss.R;
 import com.appsbrook.nicerss.presentation.presenter.MainMvpPresenter;
 import com.appsbrook.nicerss.presentation.view.MainMvpView;
 import com.appsbrook.nicerss.ui.fragment.RssItemsFragment;
+import com.appsbrook.nicerss.ui.fragment.RssSourcesFragment;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -35,12 +37,16 @@ public class MainActivity extends MvpAppCompatActivity
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.navigation_view)
-    NavigationView navigationView;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +78,19 @@ public class MainActivity extends MvpAppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.rss_feeds_item:
-                openRssItems();
+                presenter.openRssItems();
                 break;
             case R.id.favorites_item:
-                openFavorites();
+                presenter.openFavorites();
                 break;
             case R.id.rss_sources_item:
-                openRssSources();
+                presenter.openRssSources();
                 break;
             case R.id.navigation_settings_item:
-                openSettings();
+                presenter.openSettings();
                 break;
             case R.id.navigation_about_item:
-                openAbout();
+                presenter.openAbout();
                 break;
         }
 
@@ -92,24 +98,41 @@ public class MainActivity extends MvpAppCompatActivity
         return true;
     }
 
-    private void openRssItems() {
-        Toast.makeText(this, "Feeds!", Toast.LENGTH_SHORT).show();
+    @Override
+    public void openRssItemsFragment() {
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, RssItemsFragment.newInstance())
+                .commit();
     }
 
-    private void openFavorites() {
-        Toast.makeText(this, "Favorites", Toast.LENGTH_SHORT).show();
+    @Override
+    public void openFavoritesFragment() {
+
+        // TODO
+        Toast.makeText(this, "Favorites!", Toast.LENGTH_SHORT).show();
     }
 
-    private void openRssSources() {
-        presenter.onRssSourcesClick();
+    @Override
+    public void openRssSourcesFragment() {
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, RssSourcesFragment.newInstance())
+                .commit();
     }
 
-    private void openSettings() {
-        presenter.onSettingsClick();
+    @Override
+    public void openSettingsActivity() {
+
+        // TODO implement openSettingsActivity()
+        Toast.makeText(this, "Settings!", Toast.LENGTH_SHORT).show();
     }
 
-    private void openAbout() {
-        Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+    @Override
+    public void openAboutActivity() {
+
+        // TODO
+        Toast.makeText(this, "About!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -120,10 +143,6 @@ public class MainActivity extends MvpAppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
     }
 
     private void setupToolbar() {
@@ -143,20 +162,17 @@ public class MainActivity extends MvpAppCompatActivity
 
     @OnClick(R.id.add_new_source_button)
     void onAddNewSourceButtonClick() {
-
         presenter.processAddNewSourceClick();
     }
 
     @Override
-    public void showAddNewSourceDialog() {
-
+    public void openAddNewSourceDialog() {
         Intent intent = OneRssSourceActivity.getIntent(this);
         startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -167,11 +183,11 @@ public class MainActivity extends MvpAppCompatActivity
         switch (item.getItemId()) {
 
             case R.id.action_settings:
-                presenter.onSettingsClick();
+                presenter.openSettings();
                 break;
 
             case R.id.action_rss_sources:
-                presenter.onRssSourcesClick();
+                presenter.openRssSources();
                 break;
 
             default:
@@ -180,17 +196,7 @@ public class MainActivity extends MvpAppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void showSettings() {
 
-        // TODO implement showSettings()
-        Toast.makeText(this, "Settings clicked!", Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void openRssSourcesActivity() {
 
-        Intent intent = RssSourcesActivity.getIntent(this);
-        startActivity(intent);
-    }
 }
