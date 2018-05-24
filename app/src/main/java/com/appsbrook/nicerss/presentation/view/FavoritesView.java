@@ -18,4 +18,12 @@ public interface FavoritesView extends MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void showFavorites(List<RssItem> rssItems);
+
+    void onRemoveFavoritesSuccess();
+
+    @StateStrategyType(AddToEndSingleStrategy.class)
+    void updateData(List<RssItem> rssItems);
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void onRemoveFavoritesFail();
 }

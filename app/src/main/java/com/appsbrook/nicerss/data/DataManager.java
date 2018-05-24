@@ -95,4 +95,8 @@ public class DataManager {
     public List<RssItem> getFavorites() {
         return favoritesBox.getAll();
     }
+
+    public void removeFavorites() {
+        favoritesBox.removeAll();
+    }
 }

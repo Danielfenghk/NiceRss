@@ -194,12 +194,7 @@ public class MainActivity extends MvpAppCompatActivity
             case R.id.action_rss_sources:
                 presenter.openRssSources();
                 break;
-
-            default:
-                throw new RuntimeException("");
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

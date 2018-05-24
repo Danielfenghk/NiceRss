@@ -280,5 +280,6 @@
     <string name="title_activity_demo">DemoActivity</string>
     <string name="spinner_title">Rss Source Category</string>
     <string name="no_favorites_saved">No favorites saved</string>
+    <string name="remove_all">Remove All</string>
 
 </resources>

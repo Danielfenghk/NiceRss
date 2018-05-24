@@ -33,7 +33,13 @@ public class FavoritesInteractor implements IFavoritesInteractor {
         task.execute();
     }
 
-    private static class LoadFavoritesTask extends AsyncTask<Void, Void, List<RssItem>>{
+    public void removeAllFavorites() {
+
+        RemoveFavoritesTask task = new RemoveFavoritesTask(presenter, dataManager);
+        task.execute();
+    }
+
+    private static class LoadFavoritesTask extends AsyncTask<Void, Void, List<RssItem>> {
 
         private final IFavoritesPresenter presenter;
         private final DataManager dataManager;
@@ -62,6 +68,40 @@ public class FavoritesInteractor implements IFavoritesInteractor {
         protected void onPostExecute(List<RssItem> rssItems) {
 
             presenter.onLoadFavoritesSuccess(rssItems);
+        }
+    }
+
+    private static class RemoveFavoritesTask extends AsyncTask<Void, Void, Boolean> {
+
+        private IFavoritesPresenter presenter;
+        private DataManager dataManager;
+
+        RemoveFavoritesTask(IFavoritesPresenter presenter, DataManager dataManager) {
+            this.presenter = presenter;
+            this.dataManager = dataManager;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+            try {
+                dataManager.removeFavorites();
+
+            } catch (Exception e) {
+                Timber.e(e);
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean favoritesRemoved) {
+
+            if (favoritesRemoved) {
+                presenter.onRemoveFavoritesSuccess();
+            } else {
+                presenter.onRemoveFavoritesFail();
+            }
         }
     }
 }

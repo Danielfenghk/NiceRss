@@ -6,6 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -28,7 +31,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import hugo.weaving.DebugLog;
-import timber.log.Timber;
 
 @DebugLog
 public class FavoritesFragment extends MvpAppCompatFragment
@@ -52,6 +54,13 @@ public class FavoritesFragment extends MvpAppCompatFragment
 
     public static FavoritesFragment newInstance() {
         return new FavoritesFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -108,9 +117,49 @@ public class FavoritesFragment extends MvpAppCompatFragment
     }
 
     @Override
+    public void onRemoveFavoritesSuccess() {
+
+        emptyLinearLayout.setVisibility(View.VISIBLE);
+
+        Snackbar.make(frameLayout, "Favorites are removed!",
+                Snackbar.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public void updateData(List<RssItem> rssItems) {
+        rssItemsAdapter.updateNewsItems(rssItems);
+    }
+
+    @Override
+    public void onRemoveFavoritesFail() {
+        Snackbar.make(frameLayout, "Failed to remove favorites. Please, try again!",
+                Snackbar.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
     public void onRssItemClick(RssItem item) {
 
         Intent intent = OneRssItemActivity.getIntent(getActivity(), item);
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_favorites, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_remove_all_favorites:
+                presenter.removeAllFavorites();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

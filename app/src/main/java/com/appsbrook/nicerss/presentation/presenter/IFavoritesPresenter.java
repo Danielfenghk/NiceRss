@@ -8,4 +8,8 @@ public interface IFavoritesPresenter {
     void onLoadFavoritesFail();
 
     void onLoadFavoritesSuccess(List<RssItem> rssItems);
+
+    void onRemoveFavoritesSuccess();
+
+    void onRemoveFavoritesFail();
 }
