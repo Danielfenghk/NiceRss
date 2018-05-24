@@ -1,8 +1,7 @@
 package com.appsbrook.nicerss.presentation.presenter;
 
 
-import com.appsbrook.nicerss.TheApp;
-import com.appsbrook.nicerss.data.DataManager;
+import com.appsbrook.nicerss.interactors.OneRssItemInteractor;
 import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.presentation.view.OneRssItemView;
 import com.arellomobile.mvp.InjectViewState;
@@ -13,22 +12,20 @@ import org.jsoup.safety.Whitelist;
 
 import java.util.Date;
 
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 @InjectViewState
-public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
+public class OneRssItemPresenter extends MvpPresenter<OneRssItemView>
+        implements IOneRssItemPresenter {
 
     private RssItem item;
 
-    @Inject
-    DataManager dataManager;
+    private OneRssItemInteractor interactor;
 
     public OneRssItemPresenter(RssItem item) {
         Timber.d("OneRssItemPresenter constructor call: " + item);
 
-        TheApp.getAppComponent().inject(this);
+        interactor = new OneRssItemInteractor(this);
 
         this.item = item;
         displayRssItem();
@@ -51,7 +48,7 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
 
         String link = item.getLink();
 
-        if (dataManager.isRssItemSavedToFavorites(link)) {
+        if (interactor.isRssItemSavedToFavorites(link)) {
             getViewState().showRssItemInFavorites();
         } else {
             getViewState().showRssItemNotInFavorites();
@@ -107,11 +104,11 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
         return Jsoup.clean(html, whitelist);
     }
 
-    public void onAddToFavoritesButtonClick() {
+    public void onFavoritesButtonClick() {
 
         String link = item.getLink();
 
-        if (dataManager.isRssItemSavedToFavorites(link)) {
+        if (interactor.isRssItemSavedToFavorites(link)) {
             removeFromFavorites();
         } else {
             addToFavorites();
@@ -119,33 +116,32 @@ public class OneRssItemPresenter extends MvpPresenter<OneRssItemView> {
     }
 
     private void addToFavorites() {
+        interactor.addToFavorites(item);
+    }
 
-        long id = dataManager.saveToFavorites(item);
-        if (id > 0) {
-            getViewState().onAddToFavoritesSuccess();
-            getViewState().showRssItemInFavorites();
-        } else {
-            getViewState().onAddToFavoritesFailure();
-        }
+    @Override
+    public void onAddToFavoritesSuccess() {
+        getViewState().onAddToFavoritesSuccess();
+        getViewState().showRssItemInFavorites();
+    }
+
+    @Override
+    public void onAddToFavoritesFail() {
+        getViewState().onAddToFavoritesFailure();
     }
 
     private void removeFromFavorites() {
+        interactor.removeFromFavorites(item);
+    }
 
-        String link = item.getLink();
-        RssItem item = dataManager.getRssItemByLink(link);
+    @Override
+    public void onRemoveFromFavoritesFail() {
+        getViewState().onRemoveFromFavoritesFailure();
+    }
 
-        if (item == null) {
-            Timber.d("item == null");
-            getViewState().onRemoveFromFavoritesFailure();
-        }
-
-        try {
-            dataManager.removeFromFavorites(item);
-            getViewState().onRemoveFromFavoritesSuccess();
-            getViewState().showRssItemNotInFavorites();
-        } catch (Exception e) {
-            Timber.e(e, "Removal Failure");
-            getViewState().onRemoveFromFavoritesFailure();
-        }
+    @Override
+    public void onRemoveFromFavoritesSuccess() {
+        getViewState().onRemoveFromFavoritesSuccess();
+        getViewState().showRssItemNotInFavorites();
     }
 }

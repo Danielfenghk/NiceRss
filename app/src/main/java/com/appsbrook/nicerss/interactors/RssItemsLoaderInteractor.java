@@ -32,13 +32,11 @@ public class RssItemsLoaderInteractor implements IRssItemsLoaderInteractor {
 
     @Override
     public void onLoadSuccess(List<RssItem> items) {
-
         presenter.onLoadSuccess(items);
     }
 
     @Override
     public void onLoadFail() {
-
         presenter.onLoadFail("Failed to load or parse RSS feed.");
     }
 }

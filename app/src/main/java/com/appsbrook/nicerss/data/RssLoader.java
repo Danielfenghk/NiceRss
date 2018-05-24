@@ -28,7 +28,6 @@ public class RssLoader {
         List<RssSource> rssSources = dataManager.getAllRssSources();
 
         for (RssSource rssSource : rssSources) {
-
             loadFromOneSource(rssSource, interactor);
         }
     }
