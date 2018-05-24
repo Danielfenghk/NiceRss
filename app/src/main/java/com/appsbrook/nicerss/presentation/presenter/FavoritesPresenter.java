@@ -17,14 +17,11 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 
     public FavoritesPresenter() {
         this.interactor = new FavoritesInteractor(this);
-
-        loadFavorites();
     }
 
-    private void loadFavorites() {
+    public void loadFavorites() {
 
         interactor.loadFavorites();
-
     }
 
     @Override
@@ -40,6 +37,5 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
         } else {
             getViewState().showNoFavorites();
         }
-
     }
 }

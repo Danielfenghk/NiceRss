@@ -48,6 +48,7 @@ public class FavoritesFragment extends MvpAppCompatFragment
     @BindView(R.id.favorites_recycler_view)
     RecyclerView favoritesRecyclerView;
     Unbinder unbinder;
+    private RssItemsAdapter rssItemsAdapter;
 
     public static FavoritesFragment newInstance() {
         return new FavoritesFragment();
@@ -69,6 +70,13 @@ public class FavoritesFragment extends MvpAppCompatFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.loadFavorites();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -85,22 +93,18 @@ public class FavoritesFragment extends MvpAppCompatFragment
     @Override
     public void showNoFavorites() {
         emptyLinearLayout.setVisibility(View.VISIBLE);
+        favoritesRecyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void showFavorites(List<RssItem> rssItems) {
 
-        for (RssItem rssItem : rssItems) {
-            Timber.d("Favorite: " + rssItem);
-        }
-
         emptyLinearLayout.setVisibility(View.INVISIBLE);
 
         favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        RssItemsAdapter rssItemsAdapter = new RssItemsAdapter(rssItems, this);
+        rssItemsAdapter = new RssItemsAdapter(rssItems, this);
         favoritesRecyclerView.setAdapter(rssItemsAdapter);
-
     }
 
     @Override
