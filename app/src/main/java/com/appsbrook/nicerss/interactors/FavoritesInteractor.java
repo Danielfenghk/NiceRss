@@ -7,7 +7,6 @@ import com.appsbrook.nicerss.data.DataManager;
 import com.appsbrook.nicerss.models.RssItem;
 import com.appsbrook.nicerss.presentation.presenter.IFavoritesPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +15,7 @@ import timber.log.Timber;
 
 public class FavoritesInteractor implements IFavoritesInteractor {
 
+    // TODO do injection with FavoritesComponent and FavoritesModule
     private IFavoritesPresenter presenter;
 
     @Inject
@@ -52,9 +52,10 @@ public class FavoritesInteractor implements IFavoritesInteractor {
         @Override
         protected List<RssItem> doInBackground(Void... voids) {
 
-            List<RssItem> favorites = new ArrayList<>();
+            List<RssItem> favorites = null;
 
             try {
+
                 favorites = dataManager.getFavorites();
 
             } catch (Exception e) {
@@ -69,7 +70,9 @@ public class FavoritesInteractor implements IFavoritesInteractor {
         @Override
         protected void onPostExecute(List<RssItem> rssItems) {
 
-            presenter.onLoadFavoritesSuccess(rssItems);
+            if (rssItems != null) {
+                presenter.onLoadFavoritesSuccess(rssItems);
+            }
         }
     }
 
@@ -87,13 +90,15 @@ public class FavoritesInteractor implements IFavoritesInteractor {
         protected Boolean doInBackground(Void... voids) {
 
             try {
+
                 dataManager.removeFavorites();
+                return true;
 
             } catch (Exception e) {
-                Timber.e(e);
+
+                Timber.e(e, "Failed to remove all favorites.");
                 return false;
             }
-            return true;
         }
 
         @Override

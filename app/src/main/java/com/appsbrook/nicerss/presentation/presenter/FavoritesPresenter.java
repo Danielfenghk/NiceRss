@@ -43,6 +43,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
     @Override
     public void onRemoveFavoritesSuccess() {
         getViewState().updateData(null);
+        getViewState().showNoFavorites();
         getViewState().onRemoveFavoritesSuccess();
     }
 

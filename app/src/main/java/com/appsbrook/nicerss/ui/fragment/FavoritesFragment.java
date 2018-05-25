@@ -38,6 +38,8 @@ public class FavoritesFragment extends MvpAppCompatFragment
 
     @InjectPresenter
     FavoritesPresenter presenter;
+    private RssItemsAdapter rssItemsAdapter;
+    Unbinder unbinder;
 
     @BindView(R.id.frame_layout)
     FrameLayout frameLayout;
@@ -49,10 +51,6 @@ public class FavoritesFragment extends MvpAppCompatFragment
     TextView noItemsTextView;
     @BindView(R.id.favorites_recycler_view)
     RecyclerView favoritesRecyclerView;
-
-    Unbinder unbinder;
-
-    private RssItemsAdapter rssItemsAdapter;
 
     public static FavoritesFragment newInstance() {
         return new FavoritesFragment();
@@ -92,11 +90,6 @@ public class FavoritesFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void updateData(List<RssItem> rssItems) {
-        rssItemsAdapter.updateNewsItems(rssItems);
-    }
-
-    @Override
     public void loadFavorites(List<RssItem> rssItems) {
         rssItemsAdapter.updateNewsItems(rssItems);
     }
@@ -109,15 +102,22 @@ public class FavoritesFragment extends MvpAppCompatFragment
     }
 
     @Override
+    public void updateData(List<RssItem> rssItems) {
+        rssItemsAdapter.updateNewsItems(rssItems);
+    }
+
+    @Override
     public void showNoFavorites() {
         emptyLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
+    public void hideNoFavorites() {
+        emptyLinearLayout.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     public void onRemoveFavoritesSuccess() {
-
-        emptyLinearLayout.setVisibility(View.VISIBLE);
-
         Snackbar.make(frameLayout, "Favorites are removed!",
                 Snackbar.LENGTH_SHORT)
                 .show();
@@ -128,11 +128,6 @@ public class FavoritesFragment extends MvpAppCompatFragment
         Snackbar.make(frameLayout, "Failed to remove favorites. Please, try again!",
                 Snackbar.LENGTH_SHORT)
                 .show();
-    }
-
-    @Override
-    public void hideNoFavorites() {
-        emptyLinearLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override

@@ -8,25 +8,23 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-
+@StateStrategyType(AddToEndSingleStrategy.class)
 public interface FavoritesView extends MvpView {
 
-    @StateStrategyType(OneExecutionStateStrategy.class)
-    void onLoadFavoritesFail();
+    void updateData(List<RssItem> rssItems);
 
     void showNoFavorites();
 
-    @StateStrategyType(AddToEndSingleStrategy.class)
+    void hideNoFavorites();
+
     void loadFavorites(List<RssItem> rssItems);
 
+    @StateStrategyType(OneExecutionStateStrategy.class)
     void onRemoveFavoritesSuccess();
-
-    @StateStrategyType(AddToEndSingleStrategy.class)
-    void updateData(List<RssItem> rssItems);
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void onRemoveFavoritesFail();
 
-    @StateStrategyType(AddToEndSingleStrategy.class)
-    void hideNoFavorites();
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void onLoadFavoritesFail();
 }
