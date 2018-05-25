@@ -58,9 +58,11 @@ public class FavoritesInteractor implements IFavoritesInteractor {
                 favorites = dataManager.getFavorites();
 
             } catch (Exception e) {
+
                 Timber.e(e, "Failed to load all favorites.");
                 presenter.onLoadFavoritesFail();
             }
+
             return favorites;
         }
 

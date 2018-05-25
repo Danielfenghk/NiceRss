@@ -20,7 +20,6 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
     }
 
     public void loadFavorites() {
-
         interactor.loadFavorites();
     }
 
@@ -33,8 +32,10 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
     public void onLoadFavoritesSuccess(List<RssItem> rssItems) {
 
         if (rssItems.size() > 0) {
-            getViewState().showFavorites(rssItems);
+            getViewState().loadFavorites(rssItems);
+            getViewState().hideNoFavorites();
         } else {
+            getViewState().updateData(rssItems);
             getViewState().showNoFavorites();
         }
     }

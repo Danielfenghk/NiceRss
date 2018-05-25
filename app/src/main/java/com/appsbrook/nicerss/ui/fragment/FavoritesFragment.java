@@ -49,7 +49,9 @@ public class FavoritesFragment extends MvpAppCompatFragment
     TextView noItemsTextView;
     @BindView(R.id.favorites_recycler_view)
     RecyclerView favoritesRecyclerView;
+
     Unbinder unbinder;
+
     private RssItemsAdapter rssItemsAdapter;
 
     public static FavoritesFragment newInstance() {
@@ -69,13 +71,17 @@ public class FavoritesFragment extends MvpAppCompatFragment
 
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        setupRecyclerView();
+
         return view;
     }
 
-    @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void setupRecyclerView() {
 
+        favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rssItemsAdapter = new RssItemsAdapter(this);
+        favoritesRecyclerView.setAdapter(rssItemsAdapter);
     }
 
     @Override
@@ -86,11 +92,14 @@ public class FavoritesFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    public void updateData(List<RssItem> rssItems) {
+        rssItemsAdapter.updateNewsItems(rssItems);
     }
 
+    @Override
+    public void loadFavorites(List<RssItem> rssItems) {
+        rssItemsAdapter.updateNewsItems(rssItems);
+    }
 
     @Override
     public void onLoadFavoritesFail() {
@@ -102,18 +111,6 @@ public class FavoritesFragment extends MvpAppCompatFragment
     @Override
     public void showNoFavorites() {
         emptyLinearLayout.setVisibility(View.VISIBLE);
-        favoritesRecyclerView.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void showFavorites(List<RssItem> rssItems) {
-
-        emptyLinearLayout.setVisibility(View.INVISIBLE);
-
-        favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        rssItemsAdapter = new RssItemsAdapter(rssItems, this);
-        favoritesRecyclerView.setAdapter(rssItemsAdapter);
     }
 
     @Override
@@ -127,15 +124,15 @@ public class FavoritesFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void updateData(List<RssItem> rssItems) {
-        rssItemsAdapter.updateNewsItems(rssItems);
-    }
-
-    @Override
     public void onRemoveFavoritesFail() {
         Snackbar.make(frameLayout, "Failed to remove favorites. Please, try again!",
                 Snackbar.LENGTH_SHORT)
                 .show();
+    }
+
+    @Override
+    public void hideNoFavorites() {
+        emptyLinearLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -149,17 +146,24 @@ public class FavoritesFragment extends MvpAppCompatFragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_favorites, menu);
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.action_remove_all_favorites:
                 presenter.removeAllFavorites();
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

@@ -11,7 +11,7 @@ public interface MainMvpView extends MvpView {
     @StateStrategyType(OneExecutionStateStrategy.class)
     void openSettingsActivity();
 
-    @StateStrategyType(AddToEndSingleStrategy.class)
+    @StateStrategyType(OneExecutionStateStrategy.class)
     void openAddNewSourceDialog();
 
     @StateStrategyType(OneExecutionStateStrategy.class)
